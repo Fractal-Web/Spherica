@@ -1,0 +1,57 @@
+.link {
+	display: block;
+	width: min-content;
+	cursor: pointer;
+	position: relative;
+
+	& .text {
+		font-weight: 300;
+		font-size: 16px;
+		line-height: 1.65;
+		letter-spacing: normal;
+		text-transform: uppercase;
+		color: #ffffff;
+	}
+
+	&:hover {
+		& .ct {
+			transform: translateX(0px);
+		}
+
+		&::after {
+			width: 100%;
+		}
+	}
+
+	&::after {
+		content: "";
+		position: absolute;
+		width: 0px;
+		bottom: -2px;
+		height: 1px;
+		background: #ffffff;
+		left: 50%;
+		transform: translateX(-50%);
+		transition: width 300ms ease-out;
+	}
+}
+
+.ct2 {
+	padding: 0px 8px;
+	display: block;
+	width: min-content;
+	overflow: hidden;
+}
+
+.ct {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	transform: translateX(24px);
+	transition: transform 300ms ease-out;
+}
+
+.icon {
+	width: 20px;
+	height: 20px;
+}

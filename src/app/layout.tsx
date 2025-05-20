@@ -1,27 +1,29 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
+import { Header } from "@/components/Header/Header";
 
 const monteserrat = Montserrat({
-  variable: "--font-mont",
-  subsets: ["latin"],
+	variable: "--font-mont",
+	subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "Spherica",
-  description: "Spherica",
+	title: "Spherica",
+	description: "Spherica",
 };
 
 export default function RootLayout({
-  children,
+	children,
 }: Readonly<{
-  children: React.ReactNode;
+	children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body className={`${monteserrat.variable}`}>
-        {children}
-      </body>
-    </html>
-  );
+	return (
+		<html lang="en">
+			<body className={`${monteserrat.variable}`}>
+				<Header />
+				{children}
+			</body>
+		</html>
+	);
 }

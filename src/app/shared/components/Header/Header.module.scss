@@ -1,0 +1,46 @@
+.header {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	right: 0px;
+	padding: 40px 0px;
+	background: #0000004d;
+	backdrop-filter: blur(80px);
+	z-index: 10;
+
+	@media (max-width: 768px) {
+		padding: 16px 0px;
+	}
+}
+
+.ct {
+	max-width: 1440px;
+	padding: 0px 100px;
+	margin: 0px auto;
+	display: flex;
+	gap: 71px;
+	align-items: center;
+	@media (max-width: 1240px) {
+		justify-content: space-between;
+	}
+	@media (max-width: 768px) {
+		padding: 0px 24px;
+	}
+}
+
+.nav {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	@media (max-width: 1240px) {
+		display: none;
+	}
+}
+
+.connectBtn {
+	@media (max-width: 1240px) {
+		display: none !important;
+	}
+}
