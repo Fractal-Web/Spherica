@@ -1,0 +1,65 @@
+.menu {
+	display: flex;
+	position: fixed;
+	top: 71px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	background: #01000480;
+	height: 100%;
+	backdrop-filter: blur(80px);
+	flex-direction: column;
+	gap: 40px;
+	padding: 40px 24px;
+	align-items: center;
+	overflow: hidden;
+}
+
+.list {
+	display: flex;
+	width: 100%;
+	align-items: center;
+	gap: 40px;
+	flex-direction: column;
+
+	& a {
+		position: relative;
+		font-weight: 300;
+		font-size: 14px;
+		line-height: 1.65;
+		letter-spacing: normal;
+		text-transform: uppercase;
+		color: #ffffff;
+
+		&:hover {
+			&::after {
+				width: 100%;
+			}
+		}
+
+		&::after {
+			content: "";
+			position: absolute;
+			width: 0px;
+			bottom: -2px;
+			height: 1px;
+			background: #ffffff;
+			left: 50%;
+			transform: translateX(-50%);
+			transition: width 300ms ease-out;
+		}
+	}
+}
+
+.btn {
+	width: 100%;
+	:global(.wallet-adapter-button-trigger) {
+		width: 100% !important;
+		max-width: unset !important;
+		font-size: 14px;
+		min-height: 47px;
+	}
+	:global(.wallet-adapter-dropdown) {
+		width: 100%;
+	}
+}
