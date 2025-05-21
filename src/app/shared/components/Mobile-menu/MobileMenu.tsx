@@ -24,8 +24,6 @@ export const MobileMenu = () => {
 		}
 	}, [isMobile, isOpen]);
 
-	console.log(isOpen);
-
 	return (
 		<>
 			<button onClick={toggleMenu} className={styles.btn}>

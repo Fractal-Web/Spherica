@@ -52,10 +52,14 @@
 }
 
 .btn {
-	width: 100% !important;
-	max-width: unset !important;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	min-height: 47px;
+	width: 100%;
+	:global(.wallet-adapter-button-trigger) {
+		width: 100% !important;
+		max-width: unset !important;
+		font-size: 14px;
+		min-height: 47px;
+	}
+	:global(.wallet-adapter-dropdown) {
+		width: 100%;
+	}
 }

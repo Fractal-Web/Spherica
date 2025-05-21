@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header/Header";
+import { SolanaProvider } from "./integrations/solana-wallet/WalletProvider";
 
 const monteserrat = Montserrat({
 	variable: "--font-mont",
@@ -21,8 +22,10 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={`${monteserrat.variable}`}>
-				<Header />
-				{children}
+				<SolanaProvider>
+					<Header />
+					{children}
+				</SolanaProvider>
 			</body>
 		</html>
 	);

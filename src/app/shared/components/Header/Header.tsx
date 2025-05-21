@@ -1,11 +1,18 @@
+"use client";
+
 import React from "react";
 import styles from "./Header.module.scss";
 import { Link } from "@/components/Link/Link";
 import NextLink from "next/link";
 import Image from "next/image";
 import logo from "@/images/icons/logo.svg";
-import { Button } from "@/components/Button/Button";
 import { MobileMenu } from "../Mobile-menu/MobileMenu";
+import dynamic from "next/dynamic";
+
+const WalletBtn = dynamic(
+	() => import("@/components/Button/ConnectWalletBtn"),
+	{ ssr: false }
+);
 
 export type HeaderLink = {
 	href: string;
@@ -45,7 +52,7 @@ export const Header = () => {
 						</Link>
 					))}
 				</nav>
-				<Button className={styles.connectBtn}>connect wallet</Button>
+				<WalletBtn className={styles.connectBtn} />
 				<MobileMenu />
 			</div>
 		</header>

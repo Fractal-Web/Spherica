@@ -3,8 +3,13 @@ import { motion } from "framer-motion";
 import styles from "./Menu-modal.module.scss";
 import { HeaderLink } from "../Header/Header";
 import Link from "next/link";
-import { Button } from "../Button/Button";
 import { createPortal } from "react-dom";
+import dynamic from "next/dynamic";
+
+const WalletBtn = dynamic(
+	() => import("@/components/Button/ConnectWalletBtn"),
+	{ ssr: false }
+);
 
 const LINKS_MOBILE: HeaderLink[] = [
 	{
@@ -25,7 +30,7 @@ const LINKS_MOBILE: HeaderLink[] = [
 	},
 	{
 		href: "#about",
-		text: "abou",
+		text: "about",
 	},
 	{
 		href: "#token",
@@ -69,7 +74,7 @@ const MenuModal = () => {
 				))}
 			</ul>
 
-			<Button className={styles.btn}>Connect wallet</Button>
+			<WalletBtn className={styles.btn} />
 		</motion.div>,
 		document.body
 	);

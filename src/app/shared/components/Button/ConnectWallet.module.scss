@@ -1,0 +1,198 @@
+.root {
+	// position: relative;
+
+	// display: flex;
+	// align-items: center;
+
+	// --button-foreground: #f6c330;
+	// --button-background: #803c00;
+
+	// --button-background-height: 8px;
+
+	// --button-border-color: black;
+
+	// --button-ear-width: 15px;
+	// --button-ear-height: 38px;
+
+	// &:hover {
+	// 	--button-foreground: #f9ed52;
+	// 	--button-background: #e1a90a;
+
+	// 	:global(.wallet-adapter-button-trigger) {
+	// 		--button-foreground: #f9ed52;
+	// 		--button-background: #e1a90a;
+	// 	}
+	// }
+
+	// :global(.ear) {
+	// 	position: relative;
+	// 	z-index: 1;
+
+	// 	width: var(--button-ear-width);
+	// 	height: var(--button-ear-height);
+
+	// 	border: 2px solid var(--button-border-color);
+
+	// 	background: var(--button-foreground);
+
+	// 	&[data-position="left"] {
+	// 		left: 2px;
+
+	// 		border-right: none;
+	// 	}
+
+	// 	&[data-position="right"] {
+	// 		right: 2px;
+	// 		border-left: none;
+	// 	}
+
+	// 	&::after {
+	// 		content: "";
+
+	// 		position: absolute;
+
+	// 		top: calc(100% - var(--button-background-height));
+	// 		left: 0;
+	// 		right: 0;
+
+	// 		height: var(--button-background-height);
+
+	// 		background: var(--button-background);
+	// 	}
+	// }
+
+	// &:has(:global(.wallet-adapter-button-trigger):active) {
+	// 	--button-foreground: #f9ed52;
+	// 	--button-background: #e1a90a;
+
+	// 	transform: translateY(calc(var(--button-background-height) / 2));
+
+	// 	:global(.ear) {
+	// 		height: calc(
+	// 			var(--button-ear-height) - var(--button-background-height)
+	// 		);
+
+	// 		&::after {
+	// 			display: none;
+	// 		}
+	// 	}
+	// }
+
+	:global(.wallet-adapter-button-trigger) {
+		position: relative;
+		text-transform: uppercase;
+		font-family: var(--font-monter);
+		font-weight: 400;
+		font-size: 16px;
+		line-height: 1.65;
+		letter-spacing: normal;
+
+		// text-shadow: rgb(0, 0, 0) 2px 0px 0px,
+		// 	rgb(0, 0, 0) 1.75517px 0.958851px 0px,
+		// 	rgb(0, 0, 0) 1.0806px 1.68294px 0px,
+		// 	rgb(0, 0, 0) 0.141474px 1.99499px 0px,
+		// 	rgb(0, 0, 0) -0.832294px 1.81859px 0px,
+		// 	rgb(0, 0, 0) -1.60229px 1.19694px 0px,
+		// 	rgb(0, 0, 0) -1.97998px 0.28224px 0px,
+		// 	rgb(0, 0, 0) -1.87291px -0.701566px 0px,
+		// 	rgb(0, 0, 0) -1.30729px -1.5136px 0px,
+		// 	rgb(0, 0, 0) -0.421592px -1.95506px 0px,
+		// 	rgb(0, 0, 0) 0.567324px -1.91785px 0px,
+		// 	rgb(0, 0, 0) 1.41734px -1.41108px 0px,
+		// 	rgb(0, 0, 0) 1.92034px -0.558831px 0px;
+
+		// width: 190px;
+		// height: 55px;
+		padding: 8px 32px;
+		overflow: hidden;
+		width: 218px;
+		min-width: fit-content;
+
+		// &:active {
+		// 	height: calc(100% - var(--button-background-height));
+
+		// 	&::after {
+		// 		--button-foreground: #f9ed52;
+		// 		--button-background: #e1a90a;
+
+		// 		display: none;
+		// 	}
+		// }
+
+		border-radius: 40px;
+
+		flex-grow: 1;
+
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		// height: 100%;
+
+		background: transparent;
+
+		// &::after {
+		// 	content: "";
+
+		// 	position: absolute;
+
+		// 	top: calc(100% - var(--button-background-height));
+		// 	left: 0;
+		// 	right: 0;
+
+		// 	height: var(--button-background-height);
+
+		// 	background: var(--button-background);
+		// }
+
+		&:not([disabled]):hover {
+			background-color: transparent;
+			// --button-background: #e1a90a;
+		}
+
+		:global(.wallet-adapter-button-start-icon) {
+			display: none;
+		}
+
+		&::before {
+			content: "";
+			position: absolute;
+			inset: 0px;
+			width: 100%;
+			height: 100%;
+			z-index: -1;
+			background: linear-gradient(
+				230.72deg,
+				#6947f3cc 2.2%,
+				#65b6f3cc 88.33%
+			);
+			transition: opacity 300ms linear;
+			opacity: 0;
+		}
+
+		&::after {
+			content: "";
+			position: absolute;
+			inset: 0px;
+			width: 100%;
+			height: 100%;
+			z-index: -1;
+			background: linear-gradient(
+				230.72deg,
+				#6947f3 2.2%,
+				#65b6f3 88.33%
+			);
+			opacity: 1;
+			transition: opacity 300ms linear;
+		}
+
+		&:hover {
+			&::after {
+				opacity: 0;
+			}
+			&::before {
+				opacity: 1;
+			}
+		}
+	}
+}
