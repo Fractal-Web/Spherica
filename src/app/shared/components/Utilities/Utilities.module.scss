@@ -1,0 +1,144 @@
+.ct {
+	display: flex;
+	width: 100%;
+	flex-direction: column;
+	align-items: flex-start;
+	color: #ffffff;
+}
+
+.ct1 {
+	width: 100%;
+	max-width: 40%;
+	backdrop-filter: blur(80px);
+	border-right: 1px solid #d9d9d9;
+	display: flex;
+	justify-content: flex-end;
+	padding-right: 51px;
+	padding-left: 20px;
+	padding-top: 150px;
+	padding-bottom: 51px;
+	border: 1px solid; /* define border width */
+	border-image: linear-gradient(45deg, #d9d9d9, transparent) 1; /* apply gradient to border */
+	border-left: none;
+	border-top: none;
+	border-bottom: none;
+}
+
+.ct4,
+.ct6 {
+	width: 100%;
+	max-width: 40%;
+	backdrop-filter: blur(80px);
+	border-right: 1px solid #d9d9d9;
+	display: flex;
+	justify-content: flex-end;
+	padding: 97px 50px;
+	padding-left: 20px;
+
+	border-right: 1px solid rgba(217, 217, 217, 0.5);
+}
+
+.ct6 {
+	padding: 50px 51px;
+	padding-left: 20px;
+}
+
+.ct2 {
+	height: 9px;
+	width: 100%;
+	max-width: 40%;
+	padding-right: 4px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	backdrop-filter: blur(80px);
+}
+
+.border {
+	width: 100%;
+	height: 1px;
+	background: linear-gradient(
+		to right,
+		rgba(217, 217, 217, 0) 35%,
+		rgba(217, 217, 217, 0.5)
+	);
+}
+
+.ct3 {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	max-width: 360px;
+	gap: 16px;
+}
+
+.text1 {
+	font-weight: 300;
+	font-size: 24px;
+	line-height: 1.65;
+	letter-spacing: normal;
+	text-transform: uppercase;
+	background: linear-gradient(230.72deg, #6947f3 2.2%, #65b6f3 88.33%);
+
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	display: flex;
+	align-items: center;
+	gap: 16px;
+
+	& .dot {
+		display: block;
+		width: 4px;
+		height: 4px;
+		border-radius: 100%;
+		background: #ffffff4d;
+	}
+}
+
+.text2 {
+	font-weight: 300;
+	font-size: 18px;
+	line-height: 1.65;
+	letter-spacing: normal;
+	color: #ffffff;
+}
+
+.title {
+	font-weight: 600;
+	font-size: 96px;
+	line-height: 1.65;
+	letter-spacing: normal;
+	text-transform: uppercase;
+	background: linear-gradient(230.72deg, #6947f3 2.2%, #65b6f3 88.33%);
+
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+}
+
+.ct5 {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	align-items: center;
+	width: 100%;
+	max-width: 360px;
+
+	& span {
+		font-weight: 300;
+		font-size: 18px;
+		line-height: 1.65;
+		letter-spacing: normal;
+		text-transform: uppercase;
+		color: #ffffff80;
+	}
+
+	& p {
+		color: #fff;
+		font-weight: 300;
+		font-size: 18px;
+		line-height: 1.65;
+		letter-spacing: normal;
+	}
+}
