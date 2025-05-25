@@ -1,11 +1,9 @@
 import React from "react";
-// import { Container } from "../Container/Container";
 import styles from "./About.module.scss";
 import { Button } from "../Button/Button";
 
 export const About = () => {
 	return (
-		// <Container>
 		<div className={styles.grid}>
 			<div className={styles.info}>
 				<p>
@@ -30,12 +28,11 @@ export const About = () => {
 						faster, smarter, sharper.
 					</p>
 					<div className={styles.nav}>
-						<Button>Read more</Button>
+						<Button variant="outline">Read more</Button>
 						<Button>Docs</Button>
 					</div>
 				</div>
 			</div>
 		</div>
-		// </Container>
 	);
 };

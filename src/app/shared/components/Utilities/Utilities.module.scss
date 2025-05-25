@@ -4,24 +4,74 @@
 	flex-direction: column;
 	align-items: flex-start;
 	color: #ffffff;
+
+	& .ct6:last-child {
+		padding-bottom: 150px;
+		&::before {
+			content: " ";
+			position: absolute;
+			top: 9px;
+			bottom: 20%;
+			right: 0px;
+			width: 1px;
+
+			background: linear-gradient(
+				180deg,
+				rgba(255, 255, 255, 0.3) 0%,
+				rgba(255, 255, 255, 0.3) 77.39%,
+				rgba(0, 0, 0, 0.3) 100%
+			);
+		}
+
+		&::after {
+			display: none;
+		}
+	}
 }
 
 .ct1 {
 	width: 100%;
 	max-width: 40%;
 	backdrop-filter: blur(80px);
-	border-right: 1px solid #d9d9d9;
+
 	display: flex;
 	justify-content: flex-end;
 	padding-right: 51px;
 	padding-left: 20px;
 	padding-top: 150px;
 	padding-bottom: 51px;
-	border: 1px solid; /* define border width */
-	border-image: linear-gradient(45deg, #d9d9d9, transparent) 1; /* apply gradient to border */
-	border-left: none;
-	border-top: none;
-	border-bottom: none;
+	position: relative;
+	&::after {
+		content: " ";
+		position: absolute;
+		left: 40%;
+		bottom: 0px;
+		right: 9px;
+
+		height: 1px;
+		background: linear-gradient(
+			270deg,
+			rgba(255, 255, 255, 0.3) 0%,
+			rgba(255, 255, 255, 0.3) 90.22%,
+			rgba(0, 0, 0, 0.3) 100%
+		);
+	}
+
+	&::before {
+		content: " ";
+		position: absolute;
+		top: 20%;
+		bottom: 9px;
+		right: 0px;
+		width: 1px;
+
+		background: linear-gradient(
+			360deg,
+			rgba(255, 255, 255, 0.3) 0%,
+			rgba(255, 255, 255, 0.3) 77.39%,
+			rgba(0, 0, 0, 0.3) 100%
+		);
+	}
 }
 
 .ct4,
@@ -29,13 +79,38 @@
 	width: 100%;
 	max-width: 40%;
 	backdrop-filter: blur(80px);
-	border-right: 1px solid #d9d9d9;
 	display: flex;
 	justify-content: flex-end;
 	padding: 97px 50px;
 	padding-left: 20px;
+	position: relative;
 
-	border-right: 1px solid rgba(217, 217, 217, 0.5);
+	&::after {
+		content: " ";
+		position: absolute;
+		left: 40%;
+		bottom: 0px;
+		right: 9px;
+
+		height: 1px;
+		background: linear-gradient(
+			270deg,
+			rgba(255, 255, 255, 0.3) 0%,
+			rgba(255, 255, 255, 0.3) 90.22%,
+			rgba(0, 0, 0, 0.3) 100%
+		);
+	}
+
+	&::before {
+		content: " ";
+		position: absolute;
+		top: 9px;
+		bottom: 9px;
+		right: 0px;
+		width: 1px;
+
+		background: #ffffff4d;
+	}
 }
 
 .ct6 {

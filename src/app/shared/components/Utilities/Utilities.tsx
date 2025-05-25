@@ -45,26 +45,10 @@ export const Utilities = () => {
 					</p>
 				</div>
 			</div>
-			<div className={styles.ct2}>
-				<div className={styles.border} />
-			</div>
 			<div className={styles.ct4}>
 				<h2 className={styles.title}>utility</h2>
 			</div>
-			<div className={styles.ct2}>
-				<div className={styles.border} />
-			</div>
-			{/* <div className={styles.ct2}>
-				<div className={styles.border} />
-			</div>
-			<div className={styles.ct1}>TEST</div>
-			<div className={styles.ct2}>
-				<div className={styles.border} />
-			</div>
-			<div className={styles.ct1}>TEST</div>
-			<div className={styles.ct2}>
-				<div className={styles.border} />
-			</div> */}
+
 			{FACTS.map((fact, i) => (
 				<React.Fragment key={i}>
 					<div className={styles.ct6}>
@@ -73,9 +57,6 @@ export const Utilities = () => {
 							<Image src={fact.img} alt={"icon" + i} />
 							<p>{fact.text}</p>
 						</div>
-					</div>
-					<div className={styles.ct2}>
-						<div className={styles.border} />
 					</div>
 				</React.Fragment>
 			))}
