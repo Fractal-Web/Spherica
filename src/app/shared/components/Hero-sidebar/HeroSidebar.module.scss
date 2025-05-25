@@ -5,6 +5,10 @@
 	gap: 32px;
 
 	width: 100%;
+
+	@media (max-width: 768px) {
+		display: none;
+	}
 }
 
 .ct {

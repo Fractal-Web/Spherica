@@ -10,6 +10,11 @@
 	display: flex;
 	gap: 31px;
 	align-items: center;
+
+	@media (max-width: 768px) {
+		gap: 16px;
+		padding: 0px;
+	}
 }
 
 .input {
@@ -31,6 +36,11 @@
 	&::placeholder {
 		color: #fff;
 	}
+
+	@media (max-width: 768px) {
+		font-size: 14px;
+		padding: 12px 24px;
+	}
 }
 
 .btn {
@@ -43,4 +53,9 @@
 	justify-content: center;
 	align-items: center;
 	cursor: pointer;
+
+	@media (max-width: 768px) {
+		max-width: 47px;
+		height: 47px;
+	}
 }

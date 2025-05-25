@@ -17,4 +17,10 @@
 			transform: scale(1);
 		}
 	}
+
+	@media (max-width: 768px) {
+		height: calc(420px + 71px);
+		padding: 0px 16px;
+		padding-bottom: 40px;
+	}
 }

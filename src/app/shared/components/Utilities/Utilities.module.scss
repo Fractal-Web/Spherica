@@ -27,6 +27,10 @@
 			display: none;
 		}
 	}
+
+	@media (max-width: 768px) {
+		padding: 0px 16px;
+	}
 }
 
 .ct1 {
@@ -55,6 +59,18 @@
 			rgba(255, 255, 255, 0.3) 90.22%,
 			rgba(0, 0, 0, 0.3) 100%
 		);
+
+		@media (max-width: 768px) {
+			left: 8px;
+			right: 5%;
+
+			background: linear-gradient(
+				90deg,
+				rgba(255, 255, 255, 0.3) 0%,
+				rgba(255, 255, 255, 0.3) 89.88%,
+				rgba(0, 0, 0, 0.3) 100%
+			);
+		}
 	}
 
 	&::before {
@@ -71,6 +87,17 @@
 			rgba(255, 255, 255, 0.3) 77.39%,
 			rgba(0, 0, 0, 0.3) 100%
 		);
+
+		@media (max-width: 768px) {
+			top: 5%;
+			left: 0px;
+			right: unset;
+		}
+	}
+
+	@media (max-width: 768px) {
+		max-width: 100%;
+		padding: 24px;
 	}
 }
 
@@ -99,6 +126,18 @@
 			rgba(255, 255, 255, 0.3) 90.22%,
 			rgba(0, 0, 0, 0.3) 100%
 		);
+
+		@media (max-width: 768px) {
+			left: 8px;
+			right: 5%;
+
+			background: linear-gradient(
+				90deg,
+				rgba(255, 255, 255, 0.3) 0%,
+				rgba(255, 255, 255, 0.3) 89.88%,
+				rgba(0, 0, 0, 0.3) 100%
+			);
+		}
 	}
 
 	&::before {
@@ -110,12 +149,33 @@
 		width: 1px;
 
 		background: #ffffff4d;
+
+		@media (max-width: 768px) {
+			top: 5%;
+			left: 0px;
+			right: unset;
+		}
+	}
+
+	@media (max-width: 768px) {
+		max-width: 100%;
+		padding: 24px;
 	}
 }
 
 .ct6 {
 	padding: 50px 51px;
 	padding-left: 20px;
+	@media (max-width: 768px) {
+		max-width: 100%;
+		padding: 24px;
+	}
+}
+
+.ct4 {
+	@media (max-width: 768px) {
+		justify-content: flex-start;
+	}
 }
 
 .ct2 {
@@ -143,8 +203,12 @@
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	max-width: 360px;
 	gap: 16px;
+	max-width: 360px;
+	@media (max-width: 768px) {
+		gap: 24px;
+		max-width: unset;
+	}
 }
 
 .text1 {
@@ -169,6 +233,10 @@
 		border-radius: 100%;
 		background: #ffffff4d;
 	}
+
+	@media (max-width: 768px) {
+		font-size: 16px;
+	}
 }
 
 .text2 {
@@ -177,6 +245,10 @@
 	line-height: 1.65;
 	letter-spacing: normal;
 	color: #ffffff;
+
+	@media (max-width: 768px) {
+		font-size: 14px;
+	}
 }
 
 .title {
@@ -190,6 +262,9 @@
 	-webkit-background-clip: text;
 	background-clip: text;
 	color: transparent;
+	@media (max-width: 768px) {
+		font-size: 53px;
+	}
 }
 
 .ct5 {
@@ -207,6 +282,9 @@
 		letter-spacing: normal;
 		text-transform: uppercase;
 		color: #ffffff80;
+		@media (max-width: 768px) {
+			font-size: 16px;
+		}
 	}
 
 	& p {
@@ -215,5 +293,8 @@
 		font-size: 18px;
 		line-height: 1.65;
 		letter-spacing: normal;
+		@media (max-width: 768px) {
+			font-size: 16px;
+		}
 	}
 }
