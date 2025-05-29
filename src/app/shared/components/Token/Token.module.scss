@@ -404,6 +404,15 @@
 	-webkit-background-clip: text;
 	background-clip: text;
 	color: transparent;
+	box-shadow: 0 0 5px transparent, 0 0 5px transparent, 0 0 5px transparent,
+		0 0 5px transparent;
+
+	transition: box-shadow 300ms linear;
+
+	&:hover {
+		box-shadow: 0 0 2px #84fca2, 0 0 2px #84fca2, 0 0 2px #84fca2,
+			0 0 2px #84fca2;
+	}
 }
 
 .blue {
