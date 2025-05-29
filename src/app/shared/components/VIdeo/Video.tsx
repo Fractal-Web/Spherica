@@ -99,20 +99,20 @@ const Video = () => {
 								? { translateX: transformX }
 								: { height: transformSphereSize }
 						}
-						muted
 						autoPlay
 						loop
 						playsInline
+						muted
 					>
-						{/* <source
-							src={"/assets/videos/output.mov"}
+						<source
+							src={"/assets/videos/ouput_.mov"}
 							// type={"video/webm"}
 							type="video/quicktime"
-						/> */}
-						<source
+						/>
+						{/* <source
 							src={"/assets/videos/test-5.webm"}
 							type={"video/webm"}
-						/>
+						/> */}
 					</motion.video>
 					{isMobile && (
 						<span className={styles.textMobile}>
