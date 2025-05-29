@@ -382,6 +382,15 @@
 .base {
 	border: 1px solid #ffffff4d;
 	color: #ffffff;
+	box-shadow: 0 0 5px transparent, 0 0 5px transparent, 0 0 5px transparent,
+		0 0 5px transparent;
+
+	transition: box-shadow 300ms linear;
+
+	&:hover {
+		box-shadow: 0 0 2px #ffffff4d, 0 0 2px #ffffff4d, 0 0 2px #ffffff4d,
+			0 0 2px #ffffff4d;
+	}
 }
 
 .green {
@@ -435,6 +444,15 @@
 	-webkit-background-clip: text;
 	background-clip: text;
 	color: transparent;
+	box-shadow: 0 0 5px transparent, 0 0 5px transparent, 0 0 5px transparent,
+		0 0 5px transparent;
+
+	transition: box-shadow 300ms linear;
+
+	&:hover {
+		box-shadow: 0 0 2px #65b6f3, 0 0 2px #65b6f3, 0 0 2px #65b6f3,
+			0 0 2px #65b6f3;
+	}
 }
 
 .yellow {
@@ -457,4 +475,13 @@
 	-webkit-background-clip: text;
 	background-clip: text;
 	color: transparent;
+	box-shadow: 0 0 5px transparent, 0 0 5px transparent, 0 0 5px transparent,
+		0 0 5px transparent;
+
+	transition: box-shadow 300ms linear;
+
+	&:hover {
+		box-shadow: 0 0 2px #f5fb83, 0 0 2px #f5fb83, 0 0 2px #f5fb83,
+			0 0 2px #f5fb83;
+	}
 }

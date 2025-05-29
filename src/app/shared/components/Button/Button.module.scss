@@ -65,4 +65,10 @@
 	border: 1px solid #ffffff4d;
 	background: transparent;
 	color: #ffffff;
+
+	transition: all 300ms linear;
+
+	&:hover {
+		background: #ffffff0d;
+	}
 }

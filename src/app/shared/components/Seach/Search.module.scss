@@ -65,4 +65,10 @@
 			height: 14px;
 		}
 	}
+
+	transition: all 300ms linear;
+
+	&:hover {
+		background: #ffffff0d;
+	}
 }

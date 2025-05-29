@@ -6,11 +6,18 @@ import styles from "./Video.module.scss";
 import { useMediaQuery } from "usehooks-ts";
 import { VideoControls } from "../Video-controls/Video-controls";
 import { Search } from "../Seach/Search";
+import { isSafari, isIOS } from "react-device-detect";
 
 export interface Coords {
 	x: number;
 	y: number;
 }
+
+const SPHERE_SAFARI = "/assets/videos/sphere.mov";
+const SPHERE_SAFARI_TYPE = "video/quicktime";
+
+const SPHERE = "/assets/videos/sphere.webm";
+const SPHERE_TYPE = "video/webm";
 
 type MouseEventT = React.MouseEvent<HTMLDivElement, MouseEvent>;
 
@@ -79,6 +86,9 @@ const Video = () => {
 		setIsLaunchModalOpen((old) => !old);
 	};
 
+	const src = isSafari && isIOS ? SPHERE_SAFARI : SPHERE;
+	const type = isSafari && isIOS ? SPHERE_SAFARI_TYPE : SPHERE_TYPE;
+
 	return (
 		<>
 			<motion.div
@@ -104,15 +114,7 @@ const Video = () => {
 						playsInline
 						muted
 					>
-						<source
-							src={"/assets/videos/ouput_.mov"}
-							// type={"video/webm"}
-							type="video/quicktime"
-						/>
-						{/* <source
-							src={"/assets/videos/test-5.webm"}
-							type={"video/webm"}
-						/> */}
+						<source src={src} type={type} />
 					</motion.video>
 					{isMobile && (
 						<span className={styles.textMobile}>
