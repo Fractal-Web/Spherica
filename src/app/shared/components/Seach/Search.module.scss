@@ -1,4 +1,6 @@
 .form {
+	position: relative;
+	z-index: 3;
 	width: 100%;
 	max-width: 698px;
 	background: #ffffff0a;
@@ -57,5 +59,10 @@
 	@media (max-width: 768px) {
 		max-width: 47px;
 		height: 47px;
+
+		& svg {
+			width: 14px;
+			height: 14px;
+		}
 	}
 }

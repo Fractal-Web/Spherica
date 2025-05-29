@@ -1,9 +1,10 @@
 import React from "react";
 import styles from "./Search.module.scss";
+import clsx from "clsx";
 
-export const Search = () => {
+export const Search = ({ className }: { className?: string }) => {
 	return (
-		<form className={styles.form}>
+		<form className={clsx(styles.form, className)}>
 			<input
 				required
 				className={styles.input}

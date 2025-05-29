@@ -34,6 +34,8 @@
 }
 
 .ct1 {
+	position: relative;
+	z-index: 3;
 	width: 100%;
 	max-width: 40%;
 	backdrop-filter: blur(80px);
@@ -103,6 +105,8 @@
 
 .ct4,
 .ct6 {
+	position: relative;
+	z-index: 3;
 	width: 100%;
 	max-width: 40%;
 	backdrop-filter: blur(80px);

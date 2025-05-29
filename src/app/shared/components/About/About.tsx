@@ -4,7 +4,7 @@ import { Button } from "../Button/Button";
 
 export const About = () => {
 	return (
-		<div className={styles.grid}>
+		<section id="about" className={styles.grid}>
 			<div className={styles.info}>
 				<p>
 					Spherica isn&apos;t just an A1 agent — it&apos;s a{" "}
@@ -33,6 +33,6 @@ export const About = () => {
 					</div>
 				</div>
 			</div>
-		</div>
+		</section>
 	);
 };

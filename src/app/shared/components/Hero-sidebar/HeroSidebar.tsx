@@ -23,7 +23,9 @@ export const HeroSidebar = () => {
 			<ul className={styles.sidebar}>
 				{LINKS.map((link, i) => (
 					<li key={i}>
-						<Link href={link.href}>{link.title}</Link>
+						<Link icon="bottom" href={link.href}>
+							{link.title}
+						</Link>
 					</li>
 				))}
 			</ul>

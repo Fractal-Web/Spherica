@@ -32,7 +32,7 @@ const FACTS: { text: string; img: StaticImageData }[] = [
 
 export const Utilities = () => {
 	return (
-		<div className={styles.ct}>
+		<section id="utility" className={styles.ct}>
 			<div className={styles.ct1}>
 				<div className={styles.ct3}>
 					<p className={styles.text1}>
@@ -60,6 +60,6 @@ export const Utilities = () => {
 					</div>
 				</React.Fragment>
 			))}
-		</div>
+		</section>
 	);
 };
