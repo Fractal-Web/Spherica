@@ -7,3 +7,10 @@
 		object-fit: cover;
 	}
 }
+
+.fade {
+	position: absolute;
+	inset: 0px;
+	background: #000;
+	opacity: 0.35;
+}

@@ -8,10 +8,16 @@ import Image from "next/image";
 import logo from "@/images/icons/logo.svg";
 import { MobileMenu } from "../Mobile-menu/MobileMenu";
 import dynamic from "next/dynamic";
+import { Button } from "../Button/Button";
 
 const WalletBtn = dynamic(
 	() => import("@/components/Button/ConnectWalletBtn"),
-	{ ssr: false }
+	{
+		ssr: false,
+		loading: () => (
+			<Button className={styles.loaderBtn}>select wallet</Button>
+		),
+	}
 );
 
 export type HeaderLink = {

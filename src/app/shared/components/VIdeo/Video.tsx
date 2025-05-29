@@ -12,7 +12,7 @@ export interface Coords {
 	y: number;
 }
 
-type MouseEventT = React.MouseEvent<HTMLVideoElement, MouseEvent>;
+type MouseEventT = React.MouseEvent<HTMLDivElement, MouseEvent>;
 
 interface useSphereAnimationReturnValue {
 	transformX: MotionValue<string>;
@@ -82,18 +82,18 @@ const Video = () => {
 	return (
 		<>
 			<motion.div
+				onMouseOver={onMouseOver}
+				onMouseLeave={onMouseLeave}
+				onMouseMove={onMouseMove}
+				onClick={toggleModal}
 				className={styles.bgVideo}
 				initial={{ opacity: 0 }}
 				animate={{ opacity: 1 }}
-				transition={{ ease: "easeOut", duration: 0.3 }}
+				transition={{ ease: "linear", duration: 1.5 }}
 				style={isMobile ? { height: transformBlockHeight } : {}}
 			>
 				<div className={styles.videoCt}>
 					<motion.video
-						onClick={toggleModal}
-						onMouseOver={onMouseOver}
-						onMouseLeave={onMouseLeave}
-						onMouseMove={onMouseMove}
 						style={
 							!isMobile
 								? { translateX: transformX }
@@ -106,7 +106,7 @@ const Video = () => {
 					>
 						<source
 							src={"/assets/videos/output.webm"}
-							type={"video/mp4"}
+							type={"video/webm"}
 						/>
 					</motion.video>
 					{isMobile && (
