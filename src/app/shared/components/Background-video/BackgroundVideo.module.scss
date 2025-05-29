@@ -1,0 +1,12 @@
+.bg {
+	width: 100%;
+	position: fixed;
+	inset: 0px;
+	z-index: 2;
+
+	@media (max-width: 768px) {
+		z-index: 4;
+		padding-top: 71px;
+		height: fit-content;
+	}
+}

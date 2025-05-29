@@ -37,7 +37,7 @@ const LINKS: {
 
 export const Token = () => {
 	return (
-		<section className={styles.ct}>
+		<section id="token" className={styles.ct}>
 			<div className={styles.ct2}>
 				<div className={styles.ct3}>
 					<h2>token</h2>

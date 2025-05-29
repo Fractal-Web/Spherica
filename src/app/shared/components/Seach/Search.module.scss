@@ -59,5 +59,10 @@
 	@media (max-width: 768px) {
 		max-width: 47px;
 		height: 47px;
+
+		& svg {
+			width: 14px;
+			height: 14px;
+		}
 	}
 }

@@ -5,6 +5,7 @@ import { HeaderLink } from "../Header/Header";
 import Link from "next/link";
 import { createPortal } from "react-dom";
 import dynamic from "next/dynamic";
+import useDisableScroll from "../../hooks/useDisabbleScroll";
 
 const WalletBtn = dynamic(
 	() => import("@/components/Button/ConnectWalletBtn"),
@@ -43,21 +44,7 @@ const LINKS_MOBILE: HeaderLink[] = [
 ];
 
 const MenuModal = () => {
-	React.useEffect(() => {
-		const html = document.querySelector("html");
-		if (html) {
-			html.style.marginRight = `${
-				window.innerWidth - document.documentElement.clientWidth
-			}px`;
-			html.style.overflow = "hidden";
-		}
-		return () => {
-			if (html) {
-				html.style.marginRight = "0px";
-				html.style.overflow = "unset";
-			}
-		};
-	}, []);
+	useDisableScroll();
 
 	return createPortal(
 		<motion.div

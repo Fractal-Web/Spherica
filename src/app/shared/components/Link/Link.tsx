@@ -1,7 +1,10 @@
+"use client";
+
 import React, { PropsWithChildren } from "react";
 import NextLink, { LinkProps } from "next/link";
 import styles from "./Link.module.scss";
 import clsx from "clsx";
+import { useLenis } from "lenis/react";
 
 interface TLinkProps extends LinkProps {
 	type?: "white" | "gradient";
@@ -14,12 +17,23 @@ export const Link = ({
 	icon = "left",
 	...props
 }: PropsWithChildren<TLinkProps>) => {
+	const lenis = useLenis();
+
+	const scrollTo = () => {
+		if (lenis) {
+			lenis.scrollTo(props.href.toString(), { offset: -100 });
+		}
+	};
+
 	return (
 		<NextLink
 			className={clsx(
 				styles.link,
 				type === "gradient" && styles.gradient
 			)}
+			onClick={
+				props.href.toString().startsWith("#") ? scrollTo : undefined
+			}
 			{...props}
 		>
 			<span className={styles.ct2}>

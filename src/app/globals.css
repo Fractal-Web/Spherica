@@ -24,6 +24,7 @@ li {
 
 a {
 	text-decoration: none;
+	scroll-behavior: smooth;
 }
 
 button {

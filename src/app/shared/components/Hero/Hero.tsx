@@ -7,7 +7,7 @@ export const Hero = () => {
 	return (
 		<section className={styles.section}>
 			<HeroSidebar />
-			<Search />
+			<Search className={styles.search} />
 		</section>
 	);
 };

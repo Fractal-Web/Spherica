@@ -19,8 +19,14 @@
 	}
 
 	@media (max-width: 768px) {
-		height: calc(420px + 71px);
+		height: calc(460px + 71px);
 		padding: 0px 16px;
 		padding-bottom: 40px;
+	}
+}
+
+.search {
+	@media (max-width: 768px) {
+		display: none !important;
 	}
 }
