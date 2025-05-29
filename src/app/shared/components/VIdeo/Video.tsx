@@ -104,15 +104,15 @@ const Video = () => {
 						loop
 						playsInline
 					>
-						<source
+						{/* <source
 							src={"/assets/videos/output.mov"}
 							// type={"video/webm"}
 							type="video/quicktime"
-						/>
-						{/* <source
-							src={"/assets/videos/output.webm"}
-							type={"video/webm"}
 						/> */}
+						<source
+							src={"/assets/videos/test-5.webm"}
+							type={"video/webm"}
+						/>
 					</motion.video>
 					{isMobile && (
 						<span className={styles.textMobile}>
