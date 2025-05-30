@@ -10,6 +10,8 @@ import {
 import useDisableScroll from "../../hooks/useDisabbleScroll";
 import { createPortal } from "react-dom";
 import styles from "./LaunchModal.module.scss";
+import { Xscanner } from "@/components/X-Scanner/Xscanner";
+import { Chat } from "@/components/Chat/Chat";
 
 interface LaunchModalProps {
 	onClose: () => void;
@@ -74,7 +76,13 @@ export const LaunchModal = ({ onClose }: LaunchModalProps) => {
 					id="content"
 					initial={{ y: "101%" }}
 					className={styles.content}
-				></motion.div>
+				>
+					<div className={styles.ct}>
+						<Xscanner />
+						<Chat />
+						<Xscanner />
+					</div>
+				</motion.div>
 			</div>
 		</motion.div>,
 		document.body
