@@ -1,7 +1,12 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useEffect } from "react";
+import {
+	motion,
+	useAnimate,
+	usePresence,
+	ValueAnimationTransition,
+} from "framer-motion";
 import useDisableScroll from "../../hooks/useDisabbleScroll";
 import { createPortal } from "react-dom";
 import styles from "./LaunchModal.module.scss";
@@ -10,34 +15,66 @@ interface LaunchModalProps {
 	onClose: () => void;
 }
 
+const TRANSITION_SETUP: ValueAnimationTransition = {
+	bounce: 0,
+	ease: "easeOut",
+	duration: 0.4,
+};
+
 export const LaunchModal = ({ onClose }: LaunchModalProps) => {
 	useDisableScroll();
+	const [isPresent, safeToRemove] = usePresence();
+	const [scope, animate] = useAnimate();
+
+	useEffect(() => {
+		if (isPresent) {
+			const enterAnimation = async () => {
+				await animate(scope.current, { opacity: 1 }, TRANSITION_SETUP);
+				await animate("#content", { y: 0 }, TRANSITION_SETUP);
+				await animate(
+					"#close-btn",
+					{ opacity: 1 },
+					{ ...TRANSITION_SETUP, delay: 0.15 }
+				);
+			};
+			enterAnimation();
+		} else {
+			const exitAnimation = async () => {
+				await animate("#close-btn", { opacity: 0 }, TRANSITION_SETUP);
+				await animate("#content", { y: "101%" }, TRANSITION_SETUP);
+				await animate(scope.current, { opacity: 0 }, TRANSITION_SETUP);
+				safeToRemove();
+			};
+
+			exitAnimation();
+		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [isPresent]);
 
 	return createPortal(
 		<motion.div
-			initial={{ transform: "translateY(101%)" }}
-			animate={{ transform: "translateY(0%)" }}
-			exit={{ transform: "translateY(101%)" }}
-			transition={{
-				ease: "easeOut",
-				duration: 0.5,
-			}}
+			ref={scope}
+			initial={{ opacity: 0 }}
+			animate={{ opacity: 1 }}
 			className={styles.modalBg}
 		>
 			<div className={styles.modalContent}>
-				<motion.div
+				<motion.button
+					id="close-btn"
 					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					exit={{ opacity: 0 }}
-					transition={{ ease: "easeOut", duration: 0.5 }}
-					className={styles.top}
+					className={styles.btn}
+					onClick={onClose}
 				>
-					<button className={styles.btn} onClick={onClose}>
-						<CloseModalIcon />
-						<span>Close</span>
-					</button>
-				</motion.div>
-				<div className={styles.content}></div>
+					<CloseModalIcon />
+					<span>Close</span>
+				</motion.button>
+
+				<motion.div
+					id="content"
+					initial={{ y: "101%" }}
+					className={styles.content}
+				></motion.div>
 			</div>
 		</motion.div>,
 		document.body

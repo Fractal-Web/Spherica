@@ -18,13 +18,11 @@ export const VideoControls = ({
 	onCloseModal,
 }: VideoControlsProps) => {
 	return (
-		<>
-			<AnimatePresence>
-				{mousePos && isHovered && <Cursor {...mousePos} />}
-			</AnimatePresence>
-			<AnimatePresence>
-				{isLaunchModalOpen && <LaunchModal onClose={onCloseModal} />}
-			</AnimatePresence>
-		</>
+		<AnimatePresence>
+			{mousePos && isHovered && <Cursor key="cursor" {...mousePos} />}
+			{isLaunchModalOpen && (
+				<LaunchModal key="modal" onClose={onCloseModal} />
+			)}
+		</AnimatePresence>
 	);
 };
