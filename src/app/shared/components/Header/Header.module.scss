@@ -47,4 +47,8 @@
 .loaderBtn {
 	width: 100%;
 	max-width: 218px;
+
+	@media (max-width: 768px) {
+		display: none;
+	}
 }
