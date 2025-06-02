@@ -1,15 +1,32 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./Xscanner.module.scss";
+import { fetchPosts } from "@/app/integrations/twitter";
 
 export const Xscanner = () => {
+	// useEffect(() => {
+	// 	const fetchTwitterData = async () => {
+	// 		const data = await fetchPosts();
+
+	// 		console.log(data);
+	// 	};
+
+	// 	fetchTwitterData();
+	// }, []);
+
+	const onClick = async () => {
+		const data = await fetchPosts();
+
+		console.log(data);
+	};
+
 	return (
 		<div className={styles.ct}>
 			<div className={styles.controls}>
 				<span>X scanner</span>
 				<div className={styles.btns}>
-					<button className={styles.btn}>
+					<button onClick={onClick} className={styles.btn}>
 						<SoundOnIocn />
 					</button>
 					<button className={styles.btn}>
