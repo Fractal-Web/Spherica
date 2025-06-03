@@ -1,8 +1,15 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "./Xscanner.module.scss";
-import { fetchPosts } from "@/app/integrations/twitter";
+
+const ACCOUNT = { id: "44196397", handle: "elonmusk", name: "Elon Musk" };
+const ACCOUNT2 = { id: "69972349", handle: "MrBeast", name: "MrBeast" };
+const ACCOUNT3 = {
+	id: "1452103059314638851",
+	handle: "pumpdotfun",
+	name: "Pump.fun",
+};
 
 export const Xscanner = () => {
 	// useEffect(() => {
@@ -16,7 +23,12 @@ export const Xscanner = () => {
 	// }, []);
 
 	const onClick = async () => {
-		const data = await fetchPosts();
+		const res = await fetch("/api/twitter", {
+			method: "POST",
+			body: JSON.stringify(ACCOUNT3),
+		});
+
+		const data = await res.json();
 
 		console.log(data);
 	};

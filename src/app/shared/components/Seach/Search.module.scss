@@ -56,6 +56,11 @@
 	align-items: center;
 	cursor: pointer;
 
+	&:hover {
+		background: #ffffff0d;
+	}
+	transition: all 300ms linear;
+
 	@media (max-width: 768px) {
 		max-width: 47px;
 		height: 47px;
@@ -64,11 +69,5 @@
 			width: 14px;
 			height: 14px;
 		}
-	}
-
-	transition: all 300ms linear;
-
-	&:hover {
-		background: #ffffff0d;
 	}
 }
