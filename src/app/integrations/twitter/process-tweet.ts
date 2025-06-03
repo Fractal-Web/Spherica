@@ -11,7 +11,7 @@ interface ProccessTweetProps {
 export const processTweet = async ({
 	tweet,
 	userData,
-	mediaData,
+	// mediaData,
 	quotedTweets,
 }: ProccessTweetProps) => {
 	// Add tweet ID to description for later reference

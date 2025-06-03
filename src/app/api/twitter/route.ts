@@ -1,13 +1,21 @@
-import { fetchTweets } from "@/app/integrations/twitter";
-import { TwitterAccount } from "@/app/integrations/twitter/types";
+// import { fetchTweets } from "@/app/integrations/twitter";
+// import { Post, TwitterAccount } from "@/app/integrations/twitter/types";
 
-export async function POST(request: Request) {
-	const data = (await request.json()) as TwitterAccount;
+// export async function POST(request: Request) {
+// 	const data = (await request.json()) as TwitterAccount[];
 
-	const tweets = await fetchTweets({
-		account: data,
-		token: `Bearer ${process.env.TWITTER_BEARER_TOKEN as string}`,
-	});
+// 	const posts: Post[] = [];
 
-	return Response.json({ tweets }, { status: 200 });
-}
+// 	const tweetsData = await Promise.all([data.map(acc => {
+// 		const tweets = fetchTweets({
+// 			account: acc,
+// 			token: `Bearer ${process.env.TWITTER_BEARER_TOKEN as string}`,
+// 		});
+
+// 	})])
+
+// 	for(const account of data) {
+// 	}
+
+// 	return Response.json({ tweets }, { status: 200 });
+// }

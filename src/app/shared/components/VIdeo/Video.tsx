@@ -86,8 +86,8 @@ const Video = () => {
 		setIsLaunchModalOpen((old) => !old);
 	};
 
-	const src = isSafari && isIOS ? SPHERE_SAFARI : SPHERE;
-	const type = isSafari && isIOS ? SPHERE_SAFARI_TYPE : SPHERE_TYPE;
+	const src = isSafari || isIOS ? SPHERE_SAFARI : SPHERE;
+	const type = isSafari || isIOS ? SPHERE_SAFARI_TYPE : SPHERE_TYPE;
 
 	return (
 		<>

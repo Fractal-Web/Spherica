@@ -3,8 +3,8 @@
 import React from "react";
 import styles from "./Xscanner.module.scss";
 
-const ACCOUNT = { id: "44196397", handle: "elonmusk", name: "Elon Musk" };
-const ACCOUNT2 = { id: "69972349", handle: "MrBeast", name: "MrBeast" };
+// const ACCOUNT = { id: "44196397", handle: "elonmusk", name: "Elon Musk" };
+// const ACCOUNT2 = { id: "69972349", handle: "MrBeast", name: "MrBeast" };
 const ACCOUNT3 = {
 	id: "1452103059314638851",
 	handle: "pumpdotfun",
