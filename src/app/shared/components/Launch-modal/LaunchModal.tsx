@@ -80,7 +80,7 @@ export const LaunchModal = ({ onClose }: LaunchModalProps) => {
 					<div className={styles.ct}>
 						<Xscanner />
 						<Chat />
-						<Xscanner />
+						{/* <Xscanner /> */}
 					</div>
 				</motion.div>
 			</div>

@@ -1,0 +1,27 @@
+.ct {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	align-items: center;
+}
+
+.tweetLink {
+	font-weight: 300;
+	font-size: 14px;
+	line-height: 1.65;
+	letter-spacing: normal;
+	text-transform: uppercase;
+
+	background: linear-gradient(230.72deg, #6947f3 2.2%, #65b6f3 88.33%);
+
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+}
+
+.quoted {
+	padding: 16px;
+	background: #0000004d;
+	border: 1px solid #ffffff1a;
+	border-radius: 24px;
+}

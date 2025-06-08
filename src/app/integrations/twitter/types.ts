@@ -62,6 +62,7 @@ export interface Meta {
 }
 
 export interface Post {
+	id: string;
 	name: string;
 	username: string;
 	description: string;

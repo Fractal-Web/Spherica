@@ -1,25 +1,93 @@
-// import { fetchTweets } from "@/app/integrations/twitter";
-// import { Post, TwitterAccount } from "@/app/integrations/twitter/types";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { fetchTweets } from "@/app/integrations/twitter";
+import { processTweet } from "@/app/integrations/twitter/process-tweet";
+import { Post, TwitterAccount } from "@/app/integrations/twitter/types";
+import { Pool } from "pg";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const pool = new Pool({
+	user: process.env.USER,
+	password: process.env.PASSWORD,
+	host: process.env.HOST,
+	port: 5432,
+	database: process.env.DATABASE_NAME,
+});
+
 export async function POST(request: Request) {
-	// const data = (await request.json()) as TwitterAccount[];
+	const data = (await request.json()) as TwitterAccount[];
 
-	// const posts: Post[] = [];
+	const posts: Post[] = [];
+	const rateLimitedAcc: { account: TwitterAccount; retryAfter: number }[] =
+		[];
 
-	// const tweetsData = await Promise.all([
-	// 	data.map((acc) => {
-	// 		const tweets = fetchTweets({
-	// 			account: acc,
-	// 			token: `Bearer ${process.env.TWITTER_BEARER_TOKEN as string}`,
-	// 		});
-	// 	}),
-	// ]);
+	try {
+		for (const acc of data) {
+			const tweets = await fetchTweets({
+				account: acc,
+				token: `Bearer ${process.env.TWITTER_BEARER_TOKEN as string}`,
+			});
 
-	// for (const account of data) {
-	// }
+			if (tweets && tweets.rateLimited) {
+				rateLimitedAcc.push({
+					account: acc,
+					retryAfter: tweets.waitTime,
+				});
+				continue;
+			}
 
-	// return Response.json({ tweets }, { status: 200 });
+			if (!tweets || !tweets.data) {
+				console.log(`No tweets found for ${acc.handle}`);
+				continue;
+			}
 
-	return Response.json("test");
+			// Process tweets (rest of your existing code)
+			const mediaData = tweets.includes?.media || [];
+			const quotedTweets = tweets.includes?.tweets || [];
+
+			for (const tweet of tweets.data) {
+				const post = await processTweet({
+					tweet,
+					userData: acc,
+					mediaData,
+					quotedTweets,
+				});
+				posts.push(post);
+				await pool.query(
+					`INSERT INTO posts (
+							id,
+							name,
+							username,
+							description,
+							created_at,
+							q_name,
+							q_username,
+							q_description
+						) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
+					[
+						parseInt(post.id),
+						post.name,
+						post.username,
+						post.description,
+						post.created_at,
+						post.q_name,
+						post.q_username,
+						post.q_description,
+					]
+				);
+			}
+		}
+	} catch (err: any) {
+		console.error("Error in fetchAndProcessTweets:", err);
+		return Response.json(
+			{
+				succes: false,
+				message: `Error processing tweets: ${err.message}`,
+			},
+			{ status: 500 }
+		);
+	}
+
+	return Response.json(
+		{ data: posts, limited: rateLimitedAcc },
+		{ status: 200 }
+	);
 }

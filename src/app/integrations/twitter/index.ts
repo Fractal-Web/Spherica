@@ -29,7 +29,7 @@ export const fetchTweets = async ({ account, token }: FetchTweetsProps) => {
 
 	try {
 		const response = await axios.get(
-			`https://api.twitter.com/2/${endpoint}`,
+			`https://api.twitter.com/2/users/${account.id}/tweets`,
 			{
 				headers: {
 					Authorization: token,
@@ -37,9 +37,11 @@ export const fetchTweets = async ({ account, token }: FetchTweetsProps) => {
 
 				params: {
 					max_results: 5,
-					"tweet.fields": "created_at,referenced_tweets,attachments",
+					"tweet.fields":
+						"created_at,referenced_tweets,attachments,source",
 					"media.fields": "url,preview_image_url",
-					"user.fields": "name,username",
+					"user.fields":
+						"name,username,profile_image_url,profile_banner_url",
 					expansions:
 						"attachments.media_keys,referenced_tweets.id,referenced_tweets.id.author_id",
 				},
@@ -48,6 +50,8 @@ export const fetchTweets = async ({ account, token }: FetchTweetsProps) => {
 
 		// Update rate limit info from response headers
 		await setRateLimit({ endpoint, headers: response.headers });
+
+		console.log(response.data);
 
 		return response.data;
 	} catch (err: any) {

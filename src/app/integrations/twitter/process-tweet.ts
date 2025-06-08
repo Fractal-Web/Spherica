@@ -46,6 +46,7 @@ export const processTweet = async ({
 
 	// Prepare the post object
 	const post: Post | undefined = {
+		id: tweet.id,
 		name: userData.name,
 		username: userData.handle,
 		description: description,

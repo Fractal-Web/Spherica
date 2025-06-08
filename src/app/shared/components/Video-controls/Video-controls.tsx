@@ -3,6 +3,8 @@ import React from "react";
 import { Cursor } from "../Cursor/Cursor";
 import { LaunchModal } from "../Launch-modal/LaunchModal";
 import { Coords } from "../VIdeo/Video";
+import { Provider } from "react-redux";
+import { store } from "@/app/integrations/redux";
 
 interface VideoControlsProps {
 	isHovered: boolean;
@@ -21,7 +23,9 @@ export const VideoControls = ({
 		<AnimatePresence>
 			{mousePos && isHovered && <Cursor key="cursor" {...mousePos} />}
 			{isLaunchModalOpen && (
-				<LaunchModal key="modal" onClose={onCloseModal} />
+				<Provider store={store}>
+					<LaunchModal key="modal" onClose={onCloseModal} />
+				</Provider>
 			)}
 		</AnimatePresence>
 	);
