@@ -2,6 +2,7 @@ import { call, delay, put, select, take } from "redux-saga/effects";
 import {
 	actions,
 	onLoading,
+	onToggleHasNewPost,
 	onTotalPagesChange,
 	onUpdateTweets as updateTweets,
 } from "./slice";
@@ -10,9 +11,10 @@ import {
 	UserTweet,
 } from "@/app/shared/components/X-Scanner/types";
 import { RootState } from ".";
+import { AppState } from "./types";
 
-const BASE_TWEETS_PER_PAGE = 2;
-const INTERVAL = 1 * 60 * 1000;
+const BASE_TWEETS_PER_PAGE = 5;
+const INTERVAL = 10 * 60 * 1000;
 
 interface FetchTweetsReturnValue {
 	tweets: UserTweet[];
@@ -63,15 +65,25 @@ function* onSelectIsActive() {
 
 function* onUpdateTweets() {
 	yield put(onLoading(true));
-	const currentPage: number = yield select(
-		(state: RootState) => state.appReducer.currentPage
+	const state: AppState = yield select(
+		(state: RootState) => state.appReducer
 	);
+
+	const currentPage = state.currentPage;
+	const withNotification = state.withNotification;
 
 	const data: FetchTweetsReturnValue | undefined = yield fetchTweets({
 		page: currentPage,
 	});
 
-	if (data) {
+	if (data && data.tweets.length >= 1) {
+		if (withNotification && state.tweets.length >= 1) {
+			const hasUpdated = !(data.tweets[0].id === state.tweets[0].id);
+
+			if (hasUpdated) {
+				yield put(onToggleHasNewPost(true));
+			}
+		}
 		yield put(updateTweets(data.tweets));
 		yield put(onTotalPagesChange(data.totalPages));
 	}

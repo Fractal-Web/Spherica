@@ -7,6 +7,8 @@ const initialState: AppState = {
 	currentPage: 1,
 	isLoading: false,
 	isWidgetActive: false,
+	withNotification: false,
+	hasNewPost: false,
 };
 
 const appSlice = createSlice({
@@ -31,6 +33,12 @@ const appSlice = createSlice({
 		) => {
 			state.totalPages = payload;
 		},
+		onToggleNotification: (state, { payload }: { payload: boolean }) => {
+			state.withNotification = payload;
+		},
+		onToggleHasNewPost: (state, { payload }: { payload: boolean }) => {
+			state.hasNewPost = payload;
+		},
 	},
 });
 
@@ -42,6 +50,8 @@ export const {
 	onStartWidget,
 	onUpdateTweets,
 	onTotalPagesChange,
+	onToggleNotification,
+	onToggleHasNewPost,
 } = appSlice.actions;
 
 export default appSlice.reducer;

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import styles from "./Xscanner.module.scss";
 import { Tweet } from "./Tweet/Tweet";
 import clsx from "clsx";
@@ -11,28 +11,29 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useAppSelector, useStoreDispatch } from "@/app/integrations/redux";
 import {
 	selectIsLoading,
+	selectIsMuted,
 	selectIsWidgetActive,
 	selectTweets,
 } from "@/app/integrations/redux/selectors";
-import { onStartWidget } from "@/app/integrations/redux/slice";
+import {
+	onStartWidget,
+	onToggleNotification,
+} from "@/app/integrations/redux/slice";
 
 export const Xscanner = () => {
-	const [muted, setMuted] = useState(false);
-
-	const toggleMuted = () => {
-		setMuted((muted) => !muted);
-	};
-
 	const dispatch = useStoreDispatch();
 	const tweets = useAppSelector(selectTweets);
 	const isActive = useAppSelector(selectIsWidgetActive);
 	const isLoading = useAppSelector(selectIsLoading);
+	const isMuted = useAppSelector(selectIsMuted);
 
 	const toggleActive = () => {
 		dispatch(onStartWidget(!isActive));
 	};
 
-	console.log(tweets);
+	const toggleMuted = () => {
+		dispatch(onToggleNotification(!isMuted));
+	};
 
 	return (
 		<div className={styles.ct}>
@@ -48,10 +49,10 @@ export const Xscanner = () => {
 								onClick={toggleMuted}
 								className={clsx(
 									styles.btn,
-									muted && styles.btnActive
+									isMuted && styles.btnActive
 								)}
 							>
-								{!muted ? <MuteIcon /> : <UnmuteIcon />}
+								{!isMuted ? <MuteIcon /> : <UnmuteIcon />}
 							</motion.button>
 						)}
 					</AnimatePresence>

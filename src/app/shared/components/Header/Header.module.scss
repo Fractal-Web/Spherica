@@ -18,7 +18,7 @@
 	padding: 0px 100px;
 	margin: 0px auto;
 	display: flex;
-	gap: 71px;
+	gap: 40px;
 	align-items: center;
 
 	@media (max-width: 768px) {
@@ -51,4 +51,24 @@
 	@media (max-width: 768px) {
 		display: none;
 	}
+}
+
+.logoText {
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 1.65;
+	letter-spacing: normal;
+	text-transform: uppercase;
+	color: #fff;
+}
+
+.logo {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.links {
+	display: flex;
+	gap: 32px;
 }

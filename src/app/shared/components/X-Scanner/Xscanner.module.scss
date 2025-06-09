@@ -6,6 +6,10 @@
 	border: 1px solid #ffffff1a;
 	border-radius: 32px;
 	overflow: hidden;
+
+	@media (max-width: 768px) {
+		min-height: 422px;
+	}
 }
 
 .controls {

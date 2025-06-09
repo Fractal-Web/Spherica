@@ -5,6 +5,7 @@ import { LaunchModal } from "../Launch-modal/LaunchModal";
 import { Coords } from "../VIdeo/Video";
 import { Provider } from "react-redux";
 import { store } from "@/app/integrations/redux";
+import { Notification } from "../Notification/Notification";
 
 interface VideoControlsProps {
 	isHovered: boolean;
@@ -20,13 +21,14 @@ export const VideoControls = ({
 	onCloseModal,
 }: VideoControlsProps) => {
 	return (
-		<AnimatePresence>
-			{mousePos && isHovered && <Cursor key="cursor" {...mousePos} />}
-			{isLaunchModalOpen && (
-				<Provider store={store}>
+		<Provider store={store}>
+			<AnimatePresence>
+				{mousePos && isHovered && <Cursor key="cursor" {...mousePos} />}
+				{isLaunchModalOpen && (
 					<LaunchModal key="modal" onClose={onCloseModal} />
-				</Provider>
-			)}
-		</AnimatePresence>
+				)}
+				<Notification />
+			</AnimatePresence>
+		</Provider>
 	);
 };

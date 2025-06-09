@@ -6,4 +6,6 @@ export interface AppState {
 	totalPages?: number;
 	isWidgetActive: boolean;
 	isLoading: boolean;
+	withNotification: boolean;
+	hasNewPost: boolean;
 }
