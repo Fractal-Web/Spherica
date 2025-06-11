@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/Header/Header";
 import { SolanaProvider } from "./integrations/solana-wallet/WalletProvider";
 import { LenisProvder } from "./integrations/lenis/LenisProvder";
+import { ReduxProvider } from "./integrations/redux/ReduxProvider";
 
 const monteserrat = Montserrat({
 	variable: "--font-mont",
@@ -25,8 +26,10 @@ export default function RootLayout({
 			<body className={`${monteserrat.variable}`}>
 				<LenisProvder>
 					<SolanaProvider>
-						<Header />
-						{children}
+						<ReduxProvider>
+							<Header />
+							{children}
+						</ReduxProvider>
 					</SolanaProvider>
 				</LenisProvder>
 			</body>

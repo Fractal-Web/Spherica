@@ -2,6 +2,7 @@ import createSagaMiddleware from "redux-saga";
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import appReducer from "./slice";
+import axiomChatReducer from "./axiom-slice";
 import { rootSaga } from "./sagas";
 
 const sagaMiddleware = createSagaMiddleware();
@@ -10,6 +11,7 @@ export const store = configureStore({
 	devTools: true,
 	reducer: {
 		appReducer,
+		axiomChatReducer,
 	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware({ thunk: false }).concat(sagaMiddleware),
