@@ -63,15 +63,17 @@ export const Header = () => {
 							{link.text}
 						</Link>
 					))}
-					<div className={styles.links}>
-						{SOCIALS.map((el, i) => (
-							<NextLink href={"#"} key={i}>
-								<Image src={el} alt="social-icon" />
-							</NextLink>
-						))}
-					</div>
 				</nav>
+
 				<WalletBtn className={styles.connectBtn} />
+
+				<div className={styles.links}>
+					{SOCIALS.map((el, i) => (
+						<NextLink href={"#"} key={i}>
+							<Image src={el} alt="social-icon" />
+						</NextLink>
+					))}
+				</div>
 				<MobileMenu />
 			</div>
 		</header>

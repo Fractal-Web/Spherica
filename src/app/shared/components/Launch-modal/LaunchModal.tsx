@@ -12,6 +12,7 @@ import { createPortal } from "react-dom";
 import styles from "./LaunchModal.module.scss";
 import { Xscanner } from "@/components/X-Scanner/Xscanner";
 import { Chat } from "@/components/Chat/Chat";
+import { Widgets } from "../Widgets/Widgets";
 
 interface LaunchModalProps {
 	onClose: () => void;
@@ -80,7 +81,7 @@ export const LaunchModal = ({ onClose }: LaunchModalProps) => {
 					<div className={styles.ct}>
 						<Xscanner />
 						<Chat />
-						{/* <Xscanner /> */}
+						<Widgets />
 					</div>
 				</motion.div>
 			</div>

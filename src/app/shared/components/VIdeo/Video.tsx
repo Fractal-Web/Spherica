@@ -7,6 +7,8 @@ import { useMediaQuery } from "usehooks-ts";
 import { VideoControls } from "../Video-controls/Video-controls";
 import { Search } from "../Seach/Search";
 import { isSafari, isIOS } from "react-device-detect";
+import { useAppSelector, useStoreDispatch } from "@/app/integrations/redux";
+import { onToggleModal } from "@/app/integrations/redux/axiom-slice";
 
 export interface Coords {
 	x: number;
@@ -64,7 +66,10 @@ const Video = () => {
 	} = useSphereAnimations();
 
 	const [isHovered, setIsHovered] = useState(false);
-	const [isLaunchModalOpen, setIsLaunchModalOpen] = useState(false);
+	const isLaunchModalOpen = useAppSelector(
+		(state) => state.axiomChatReducer.isModalOpen
+	);
+	const dispatch = useStoreDispatch();
 
 	const [mousePos, setMousePos] = useState<Coords | null>(null);
 
@@ -83,7 +88,7 @@ const Video = () => {
 	};
 
 	const toggleModal = () => {
-		setIsLaunchModalOpen((old) => !old);
+		dispatch(onToggleModal(!isLaunchModalOpen));
 	};
 
 	const src = isSafari || isIOS ? SPHERE_SAFARI : SPHERE;
@@ -139,7 +144,7 @@ const Video = () => {
 				mousePos={mousePos}
 				isLaunchModalOpen={isLaunchModalOpen}
 				onCloseModal={() => {
-					setIsLaunchModalOpen(false);
+					dispatch(onToggleModal(false));
 				}}
 			/>
 		</>

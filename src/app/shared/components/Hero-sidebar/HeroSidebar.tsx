@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./HeroSidebar.module.scss";
 import { Link } from "../Link/Link";
+import { Boots } from "../Boots/Boots";
 
 const LINKS: { href: string; title: string }[] = [
 	{
@@ -29,6 +30,7 @@ export const HeroSidebar = () => {
 					</li>
 				))}
 			</ul>
+			<Boots />
 		</div>
 	);
 };

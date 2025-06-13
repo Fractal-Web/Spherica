@@ -9,3 +9,14 @@ export interface AppState {
 	withNotification: boolean;
 	hasNewPost: boolean;
 }
+
+export interface Message {
+	text: string;
+	type: "incoming" | "outcoming";
+}
+
+export interface AxiomChatState {
+	messages: Message[];
+	isLoading: boolean;
+	isModalOpen: boolean;
+}

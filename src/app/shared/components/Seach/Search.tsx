@@ -1,14 +1,21 @@
+"use client";
+
 import React from "react";
 import styles from "./Search.module.scss";
 import clsx from "clsx";
+// import useHandleUserInput from "../../hooks/useHadlerUserInput";
 
 export const Search = ({ className }: { className?: string }) => {
+	// const { onAddresChange, value, onSubmit } = useHandleUserInput();
+
 	return (
 		<form className={clsx(styles.form, className)}>
 			<input
+				name="address"
 				required
 				className={styles.input}
 				placeholder="Contract address"
+				// onChange={onAddresChange}
 			/>
 			<button className={styles.btn}>
 				<CoppyIcon />
