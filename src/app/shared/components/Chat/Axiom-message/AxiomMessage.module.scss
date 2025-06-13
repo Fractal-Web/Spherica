@@ -1,0 +1,38 @@
+.message {
+	width: fit-content;
+	height: 100%;
+	max-height: fit-content;
+	max-width: 60%;
+	margin-left: 100px;
+	background: linear-gradient(
+		230.72deg,
+		rgba(105, 71, 243, 0.5) 2.2%,
+		rgba(101, 182, 243, 0.5) 88.33%
+	);
+	padding: 1px;
+	border-radius: 24px;
+	overflow: hidden;
+	margin-bottom: 8px;
+	flex-shrink: 0;
+}
+
+.ct {
+	background: #000;
+	border-radius: 24px;
+}
+
+.ct2 {
+	padding: 16px;
+
+	background: linear-gradient(
+		230.72deg,
+		rgba(105, 71, 243, 0.1) 2.2%,
+		rgba(101, 182, 243, 0.1) 88.33%
+	);
+
+	& p {
+		color: #fff;
+		text-wrap: wrap;
+		overflow-wrap: break-word;
+	}
+}

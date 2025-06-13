@@ -1,0 +1,44 @@
+.ct {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.ct2 {
+	width: 100%;
+	height: 200px;
+	border-radius: 32px;
+	border: 1px solid #ffffff1a;
+	background: #0000004d;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+}
+
+.ct3 {
+	display: flex;
+	width: fit-content;
+	flex-direction: column;
+	align-items: center;
+	gap: 16px;
+
+	& span {
+		font-weight: 300;
+		font-size: 14px;
+		line-height: 1.65;
+		letter-spacing: normal;
+		text-transform: uppercase;
+		color: #ffffff4d;
+	}
+}
+
+.lock {
+	position: absolute;
+	z-index: 1;
+	top: 0px;
+	right: 0px;
+}
