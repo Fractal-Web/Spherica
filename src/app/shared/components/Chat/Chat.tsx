@@ -9,6 +9,7 @@ import { useAppSelector } from "@/app/integrations/redux";
 import { AnimatePresence, motion } from "framer-motion";
 import { UserMessage } from "./User-message/UserMessage";
 import { AxioMessage } from "./Axiom-message/AxiomMessage";
+import { useMediaQuery } from "usehooks-ts";
 
 type AMOUNT = "$<100" | "$100-$500" | "$500-$1000" | "$1000+";
 
@@ -27,6 +28,8 @@ export const Chat = () => {
 	const { isLoading, messages } = useAppSelector(
 		(state) => state.axiomChatReducer
 	);
+
+	const isMobile = useMediaQuery("(max-width: 768px)");
 
 	useEffect(() => {
 		if (messages.length > 0 || isLoading) {
@@ -96,7 +99,7 @@ export const Chat = () => {
 			</form>
 			<motion.video
 				animate={
-					moveSphere
+					!isMobile && moveSphere
 						? { transform: "translate(-180%,45%) scale(0.4)" }
 						: {}
 				}

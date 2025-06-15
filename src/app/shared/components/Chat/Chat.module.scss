@@ -100,6 +100,15 @@
 	width: 100%;
 	max-width: 150px;
 	height: auto;
+
+	@media (max-width: 768px) {
+		left: 10px;
+		bottom: 95px;
+		top: unset;
+		transform: translate(0%, 0%);
+		width: 60px;
+		height: auto;
+	}
 }
 
 .prices {
@@ -112,6 +121,26 @@
 	display: flex;
 	gap: 24px;
 	background: #000;
+
+	@media (max-width: 768px) {
+		overflow-x: auto;
+		&::-webkit-scrollbar {
+			height: 3px;
+		}
+
+		&::-webkit-scrollbar-track {
+			background: transparent;
+		}
+
+		&::-webkit-scrollbar-thumb {
+			background: linear-gradient(
+				230.72deg,
+				#6947f3 2.2%,
+				#65b6f3 88.33%
+			);
+			border-radius: 4px;
+		}
+	}
 }
 
 .priceBtn {
@@ -165,4 +194,9 @@
 	transform: translate(-50%, -25%);
 	color: #ffffff4d;
 	width: 100%;
+
+	@media (max-width: 768px) {
+		top: 50%;
+		transform: translate(-50%, -50%);
+	}
 }
