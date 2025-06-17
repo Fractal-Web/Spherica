@@ -73,7 +73,7 @@ export default function useHandleUserInput({
 			})
 		);
 
-		const resp = await fetch("http://localhost:5523/backend/axiom", {
+		const resp = await fetch("http://157.180.34.119:5523/backend/axiom", {
 			method: "POST",
 			body: JSON.stringify({ address }),
 			headers: {
