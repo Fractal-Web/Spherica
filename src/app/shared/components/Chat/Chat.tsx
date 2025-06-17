@@ -3,31 +3,32 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Chat.module.scss";
 import clsx from "clsx";
-import useHandleUserInput from "../../hooks/useHadlerUserInput";
+import useHandleUserInput, { AMOUNT } from "../../hooks/useHadlerUserInput";
 import { Button } from "../Button/Button";
 import { useAppSelector } from "@/app/integrations/redux";
 import { AnimatePresence, motion } from "framer-motion";
 import { UserMessage } from "./User-message/UserMessage";
 import { AxioMessage } from "./Axiom-message/AxiomMessage";
 import { useMediaQuery } from "usehooks-ts";
-
-type AMOUNT = "$<100" | "$100-$500" | "$500-$1000" | "$1000+";
+import { Loading } from "./Loading/Loading";
 
 const AMOUNTS: AMOUNT[] = ["$<100", "$100-$500", "$500-$1000", "$1000+"];
 
 export const Chat = () => {
 	const [moveSphere, setMoveSphere] = useState(false);
-	const [amount, setAmount] = useState<AMOUNT>("$<100");
-	const { onAddresChange, onSubmit, value } = useHandleUserInput({
-		options: {
-			callback: () => {
-				setMoveSphere(true);
+	const { onAddresChange, onSubmit, value, onAmountChange, amount } =
+		useHandleUserInput({
+			options: {
+				callback: () => {
+					setMoveSphere(true);
+				},
 			},
-		},
-	});
+		});
 	const { isLoading, messages } = useAppSelector(
 		(state) => state.axiomChatReducer
 	);
+
+	console.log(messages);
 
 	const isMobile = useMediaQuery("(max-width: 768px)");
 
@@ -43,7 +44,7 @@ export const Chat = () => {
 				{AMOUNTS.map((el, i) => (
 					<button
 						className={styles.priceBtn}
-						onClick={() => setAmount(el)}
+						onClick={() => onAmountChange(el)}
 						key={i}
 					>
 						<span
@@ -69,15 +70,25 @@ export const Chat = () => {
 										<UserMessage
 											message={message.text}
 											key={i}
+											withMarginBotton={
+												i + 1 < messages.length
+													? messages[i + 1].type ===
+													  "outcoming"
+														? true
+														: false
+													: false
+											}
 										/>
 									) : (
 										<AxioMessage
-											message={message.text}
+											delay={i - 1}
+											message={message}
 											key={i}
 										/>
 									)
 							  )
 							: null}
+						{isLoading && <Loading />}
 					</AnimatePresence>
 				</div>
 			</div>

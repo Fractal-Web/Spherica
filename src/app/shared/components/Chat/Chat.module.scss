@@ -69,6 +69,7 @@
 	height: 100%;
 	overflow-y: auto;
 	overflow-x: hidden;
+	display: grid;
 	&::-webkit-scrollbar {
 		width: 3px;
 	}
@@ -83,7 +84,7 @@
 	}
 	margin-top: 70px;
 	padding-top: 30px;
-	padding-bottom: 24px;
+	padding-bottom: 35px;
 }
 
 .btn {

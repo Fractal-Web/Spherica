@@ -1,277 +1,426 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-"use server";
-import axios from "axios";
+import { AMOUNT } from "@/app/shared/hooks/useHadlerUserInput";
+import { AxiomMessage } from "../redux/types";
 
-const MAX_INDEX = 10000;
-let index = 0;
-let baseUrl = `https://api${index}.axiom.trade`;
+type MsgType = AxiomMessage["text"];
 
-const headers = {
-	accept: "application/json, text/plain, */*",
-	origin: "https://axiom.trade",
-	referer: "https://axiom.trade/",
-	cookie: "auth-refresh-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZWZyZXNoVG9rZW5JZCI6Ijc5NmU4NjcxLWU2N2EtNGViYi05MTQ1LTBiZDc2OGZhZWI1NyIsImlhdCI6MTc0NTc4NDk0OH0.Kio0DkEhbRjLAMQ-ZGDymJ5mu6wQA_9TTxqil01nYE4; auth-access-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoZW50aWNhdGVkVXNlcklkIjoiYzAyNmNjMWEtMzhlZi00YmUzLThkMGEtZWE4NGZiNGFkMzY2IiwiaWF0IjoxNzQ5NTYzMDIyLCJleHAiOjE3NDk1NjM5ODJ9.g3L3nauQy44f5g602ZRzYxrA4bhF5IOBungcBBppsXA",
-};
+function getClosestExponentOfTen(value: number) {
+	const exponent = Math.log10(value);
+	const lower = Math.floor(exponent);
+	const upper = Math.ceil(exponent);
 
-interface ProtocolDetails {
-	baseToken: string;
+	const lowerPower = Math.pow(10, lower);
+	const upperPower = Math.pow(10, upper);
+
+	if (Math.abs(value - lowerPower) <= Math.abs(value - upperPower)) {
+		return lower;
+	} else {
+		return upper;
+	}
 }
 
-export interface TokenResponseInfo {
-	tokenName: string;
-	tokenImage: string;
-	tokenTicker: string;
-	createdAt: string;
-	pairAddress: string;
-	tokenAddress: string;
-	protocol: string;
-	protocolDetails: ProtocolDetails;
-	tokenDecimals: number;
-	supply: number;
-	liquiditySol: number;
-	liquidityToken: number;
-	marketCapSol: number;
-	bondingCurvePercent: number;
-	volumeSol: number;
-	website: string;
-	twitter: string;
-	telegram: string | null;
-	extra: any | null;
-	dexPaid: boolean;
-}
+export const getTop10Holdersmsg = (top10holders: string): MsgType => {
+	const holdersPercentage = parseFloat(top10holders.split("%")[0] ?? 0);
 
-interface TokenInfo {
-	tokenName: string;
-	pairAddress: string;
-	VolumeSol: number;
-	LiquiditySol: number;
-	LiquidityToken: number;
-}
+	let risk = "";
+	let msg = "";
 
-interface TokenHoldingsInfo {
-	top10HoldersPercent: number;
-	devHoldsPercent: number;
-	snipersHoldPercent: number;
-	insidersHoldPercent: number;
-	bundlersHoldPercent: number;
-	dexPaid: boolean;
-	numHolders: number;
-	numBotUsers: number;
-	totalPairFeesPaid: number;
-	numBluechipHolders?: number;
-}
+	if (holdersPercentage < 10) {
+		risk = "Very Low Risk.";
+		msg =
+			"The project is decentralized. Risk of manipulation by big holders is very low. A good choice for long-term investment.";
+	}
 
-function formatPercent(value: number) {
-	if (Math.abs(value) < 0.01) return "0%";
-	return value.toFixed(2) + "%";
-}
+	if (holdersPercentage >= 10 && holdersPercentage < 16) {
+		risk = "Low Risk.";
+		msg =
+			"The project is quite decentralized. Risks of manipulation are low, but price may change due to big holders activity";
+	}
 
-function formatInteger(value: number) {
-	return Math.round(value).toString();
-}
+	if (holdersPercentage >= 16 && holdersPercentage < 26) {
+		risk = "Medium Risk.";
+		msg =
+			"Moderate token concentration in the top 10%. Manipulation risks are possible but not critical.";
+	}
+	if (holdersPercentage >= 26 && holdersPercentage < 41) {
+		risk = "High Risk!";
+		msg =
+			"A large share of tokens is held by a few. High risk of manipulation and sudden price moves.";
+	}
+	if (holdersPercentage >= 41) {
+		risk = "Very High Risk!";
+		msg =
+			"Big holders can strongly influence the price. Investing is very risky.";
+	}
 
-function formatDexPaid(value: boolean) {
-	return value ? "Paid" : "Unpaid";
-}
-
-function formatTokenInfo(apiData: TokenHoldingsInfo) {
 	return {
-		top10HoldersPercent: formatPercent(apiData.top10HoldersPercent),
-		devHoldsPercent: formatPercent(apiData.devHoldsPercent),
-		snipersHoldPercent: formatPercent(apiData.snipersHoldPercent),
-		insidersHoldPercent: formatPercent(apiData.insidersHoldPercent),
-		bundlersHoldPercent: formatPercent(apiData.bundlersHoldPercent),
-		numHolders: formatInteger(apiData.numHolders),
-		numBotUsers: formatInteger(apiData.numBotUsers),
-		dexPaid: formatDexPaid(apiData.dexPaid),
-		numBluechipHolders: formatInteger(apiData.numBluechipHolders ?? 0),
+		title: "10% Holders",
+		msg,
+		risk,
 	};
-}
+};
 
-interface GetTokenReturnValue {
-	tokenInfo?: TokenInfo;
-	error?: any;
-}
+export const getNumberOfHolders = (
+	marketCap: number,
+	numOfHolders: string
+): MsgType => {
+	const holders = parseInt(numOfHolders);
 
-const getToken = async function getToken(
-	contractAddress: string
-): Promise<GetTokenReturnValue> {
-	while (true) {
-		try {
-			const response = await axios.get(
-				`${baseUrl}/search?searchQuery=${contractAddress}`,
-				{ headers }
-			);
+	const DEFAULT_POW = 1.456;
 
-			console.log(response);
+	const exponent = getClosestExponentOfTen(marketCap);
 
-			if (response.status === 200 && response.data.length > 0) {
-				const {
-					tokenName,
-					pairAddress,
-					volumeSol,
-					liquiditySol,
-					liquidityToken,
-				} = response.data[0] as TokenResponseInfo;
+	const powValue = DEFAULT_POW * exponent;
 
-				const VolumeSol = parseFloat(volumeSol.toFixed(4));
-				const LiquiditySol = parseFloat(liquiditySol.toFixed(4));
-				const LiquidityToken = parseFloat(liquidityToken.toFixed(4));
+	const mc = Math.pow(10, powValue);
 
-				return {
-					tokenInfo: {
-						tokenName,
-						pairAddress,
-						VolumeSol,
-						LiquiditySol,
-						LiquidityToken,
-					},
-				};
-			}
-		} catch (_) {
-			console.log(_);
-			console.log("Trying next API index... " + index);
-			index++;
-			baseUrl = `https://api${index}.axiom.trade`;
-		}
-		if (index > MAX_INDEX) {
+	const optimalHolders = 0.0000526 * mc;
+
+	if (holders > optimalHolders)
+		return {
+			title: "Holders",
+			msg: `Holder count meets or exceeds the expected level, reducing price volatility`,
+			risk: "Very Low Risk.",
+		};
+
+	const oneProc = optimalHolders / 100;
+
+	const result = holders / oneProc;
+
+	console.log(result);
+
+	if (result <= 10) {
+		return {
+			title: "Holders",
+			msg: `Holder count is slightly below the expected level (~${result.toFixed(
+				2
+			)}%), but the market remains stable.`,
+			risk: "Low Risk.",
+		};
+	}
+
+	if (result <= 20) {
+		return {
+			title: "Holders",
+			msg: `Decreased holder count (~${result.toFixed(
+				2
+			)}%) increases the chance of large holders influencing the price.`,
+			risk: "Medium Risk",
+		};
+	}
+
+	if (result <= 30) {
+		return {
+			title: "Holders",
+			msg: `Low holder count (~${result.toFixed(
+				2
+			)}%) raises the risk of sharp price swings and manipulation."`,
+			risk: "High Risk!",
+		};
+	}
+
+	if (result >= 40) {
+		return {
+			title: "Holders",
+			msg: `Significantly low holder count (<${result.toFixed(
+				2
+			)}%) poses a high risk of manipulation and strong volatility.`,
+			risk: "Very High Risk!",
+		};
+	}
+
+	return {
+		title: "Holders",
+		risk: "Unknow",
+		msg: "No info",
+	};
+};
+
+export const getBundlersHold = (bundlers: string) => {
+	const bundlersPercentage = parseFloat(bundlers.split("%")[0] ?? 0);
+
+	let risk = "";
+	let msg = "";
+
+	if (bundlersPercentage < 5) {
+		risk = "Very Low Risk.";
+		msg =
+			"Token looks organic with no signs of automation, and dumping is highly unlikely.";
+	}
+
+	if (bundlersPercentage >= 5 && bundlersPercentage < 10) {
+		risk = "Low Risk.";
+		msg =
+			"Some bot activity is present, but it poses minimal impact or dump risk";
+	}
+
+	if (bundlersPercentage >= 10 && bundlersPercentage < 15) {
+		risk = "Medium Risk.";
+		msg =
+			"Early automated buys may affect pricing, with moderate chance of partial dumping.";
+	}
+	if (bundlersPercentage >= 15 && bundlersPercentage < 30) {
+		risk = "High Risk!";
+		msg =
+			"Bundlers likely coordinated entry and may dump after price increases.";
+	}
+	if (bundlersPercentage >= 30) {
+		risk = "Very High Risk!";
+		msg =
+			"Token is likely controlled by insiders or bots and a fast, heavy dump is highly probable.";
+	}
+
+	return {
+		title: "Bundlers",
+		msg,
+		risk,
+	};
+};
+
+export const getSnipers = (snipersHold: string): MsgType => {
+	const snipersPercentage = parseFloat(snipersHold.split("%")[0] ?? 0);
+
+	let risk = "";
+	let msg = "";
+
+	if (snipersPercentage < 5) {
+		risk = "Very Low Risk.";
+		msg = "Sniper bots are barely present - fair and organic token launch.";
+	}
+
+	if (snipersPercentage >= 5 && snipersPercentage < 10) {
+		risk = "Low Risk.";
+		msg = "A few snipers entered early, but overall impact is low.";
+	}
+
+	if (snipersPercentage >= 10 && snipersPercentage < 15) {
+		risk = "Medium Risk.";
+		msg =
+			"Snipers likely front-ran the launch and may dump quickly for profit.";
+	}
+	if (snipersPercentage >= 15 && snipersPercentage < 30) {
+		risk = "High Risk!";
+		msg =
+			"High sniper presence suggests early manipulation and fast exits are likely.";
+	}
+	if (snipersPercentage >= 30) {
+		risk = "Very High Risk!";
+		msg =
+			"Launch is dominated by sniper bots extreme risk of instant dump and price collapse.";
+	}
+
+	return {
+		title: "Very Low Risk",
+		msg,
+		risk,
+	};
+};
+
+export const getDexscreener = (dexscreener: string): MsgType => {
+	switch (dexscreener) {
+		case "Paid": {
 			return {
-				error: `Current attempt index: ${index}, maximum attempts: ${MAX_INDEX}`,
+				title: "Dexscreener",
+				risk: "Paid",
+				msg: "The project invested in promotion on Dexscreener, indicating team activity.",
 			};
 		}
+		case "Unpaid": {
+			return {
+				title: "Dexscreener",
+				risk: "Not Paid",
+				msg: "The project did not pay for promotion, which may suggest a low budget or less activity.",
+			};
+		}
+		default:
+			return {
+				title: "Dexscreener",
+				risk: "Unable do identify",
+				msg: "",
+			};
 	}
 };
 
-interface PairInfo {
-	top10HoldersPercent: string;
-	devHoldsPercent: string;
-	snipersHoldPercent: string;
-	insidersHoldPercent: string;
-	bundlersHoldPercent: string;
-	numHolders: string;
-	numBotUsers: string;
-	dexPaid: string;
-	numBluechipHolders: string;
-}
+export const getLiquidity = (
+	marketCap: number,
+	liquidityToken: string
+): MsgType => {
+	const lr = parseFloat(liquidityToken) / marketCap;
 
-interface ApiDataReturnValue {
-	data?: PairInfo;
-	error: any;
-}
+	let risk = "";
+	let msg = "";
 
-const apiData = async function getPairInfo(
-	pairAddress: string
-): Promise<ApiDataReturnValue> {
-	while (true) {
-		try {
-			const response = await axios.get(
-				`${baseUrl}/token-info?pairAddress=${pairAddress}`,
-				{ headers }
-			);
-			if (response.status === 200) {
-				const data = response.data as TokenHoldingsInfo;
-				return {
-					data: formatTokenInfo(data),
-					error: null,
-				};
-			}
-		} catch (_) {
-			console.log("Trying next API index...");
-			index++;
-			baseUrl = `https://api${index}.axiom.trade`;
-		}
-		if (index > MAX_INDEX) {
-			return {
-				error: `Current attempt index: ${index}, maximum attempts: ${MAX_INDEX}`,
-			};
-		}
+	if (lr < 0.05) {
+		risk = "Very High Risk!";
+		msg =
+			"Liquidity is extremely low, with high chances of manipulation and sudden price swings..";
 	}
+	if (lr >= 0.05) {
+		risk = "High Risk!";
+		msg =
+			"Liquidity is low, and prices can change sharply with small trades.";
+	}
+	if (lr >= 0.1) {
+		risk = "Medium Risk.";
+		msg =
+			"Liquidity is acceptable, but market depth is limited, leading to moderate volatility.";
+	}
+	if (lr >= 0.2) {
+		risk = "Low Risk.";
+		msg = "Liquidity is good, with only minor price fluctuations possible.";
+	}
+	if (lr >= 0.3) {
+		risk = "Very Low Risk.";
+		msg =
+			"Liquidity is high, the market is stable, and price movements are smooth.";
+	}
+
+	return {
+		title: "Liquidity ",
+		risk,
+		msg,
+	};
 };
 
-export interface Token {
-	tokenName: string;
-	pairAddress: string;
-	VolumeSol: number;
-	LiquiditySol: number;
-	LiquidityToken: number;
+export const getMarketCap = (mc: number, amount: AMOUNT): MsgType => {
+	let risk = "";
+	let profit = "";
+	let msg = "";
 
-	top10HoldersPercent: string;
-	devHoldsPercent: string;
-	snipersHoldPercent: string;
-	insidersHoldPercent: string;
-	bundlersHoldPercent: string;
-
-	numHolders: string;
-	numBotUsers: string;
-
-	dexPaid: string;
-
-	numBluechipHolders?: string;
-}
-
-function formatAndLogTokenData(token: Token): string {
-	return `
-            Token Information:
-            -------------------
-            Token Name: ${token.tokenName}
-            Pair Address: ${token.pairAddress}
-            Volume (SOL): ${token.VolumeSol.toFixed(3)}
-            Liquidity (SOL): ${token.LiquiditySol.toFixed(3)}
-            Liquidity (Token): ${token.LiquidityToken.toFixed(3)}
-
-            Holder Statistics:
-            -------------------
-            Top 10 Holders: ${token.top10HoldersPercent}
-            Developer Holds: ${token.devHoldsPercent}
-            Snipers Hold: ${token.snipersHoldPercent}
-            Insiders Hold: ${token.insidersHoldPercent}
-            Bundlers Hold: ${token.bundlersHoldPercent}
-            Number of Holders: ${token.numHolders}
-            Number of Bot Users: ${token.numBotUsers}
-
-            Additional Information:
-            ------------------------
-            DEX Paid: ${token.dexPaid}
-            Number of Bluechip Holders: ${token.numBluechipHolders}`;
-}
-
-export interface ParseInfoReturnValue {
-	data?: string;
-	error: string | null;
-}
-
-export async function parseInfo({
-	address,
-}: {
-	address: string;
-}): Promise<ParseInfoReturnValue> {
-	const result: ParseInfoReturnValue = { data: undefined, error: null };
-
-	try {
-		const getTokenData = await getToken(address);
-
-		if (getTokenData.tokenInfo && !getTokenData.error) {
-			const token = getTokenData.tokenInfo;
-
-			const tokenData = await apiData(token?.pairAddress);
-
-			if (tokenData.data && !tokenData.error) {
-				const mergedTokenData = { ...token, ...tokenData.data };
-				const formatedData = formatAndLogTokenData(mergedTokenData);
-				result.data = formatedData;
-			} else {
-				throw tokenData.error;
+	if (mc < 50000) {
+		switch (amount) {
+			case "$<100": {
+				profit = "Very High";
+				risk = "Very High";
+				msg = "Project is at an early stage.";
 			}
-		} else {
-			throw getTokenData.error;
+			case "$100-$500": {
+				profit = "Very High";
+				risk = "Very High";
+				msg = "Project is at an early stage.";
+			}
+			case "$500-$1000": {
+				profit = "Very High";
+				risk = "Very High";
+				msg =
+					"Project is at an early stage. Invest in parts, it's safer and more flexible.";
+			}
+			case "$1000+": {
+				profit = "Very High";
+				risk = "Very High";
+				msg =
+					"Project is at an early stage. Invest in parts, it's safer and more flexible.";
+			}
 		}
-	} catch (error) {
-		console.error("Error:", error);
-		result.error = "Oops, something went wrong";
-	} finally {
-		return result;
 	}
-}
 
-//DitHyRMQiSDhn5cnKMJV2CDDt6sVct96YrECiM49pump
+	if (mc >= 50000 && mc < 250000) {
+		switch (amount) {
+			case "$<100": {
+				profit = "High";
+				risk = "High";
+				msg = "Project is small.";
+			}
+			case "$100-$500": {
+				profit = "High";
+				risk = "High";
+				msg = "Project is small.";
+			}
+			case "$500-$1000": {
+				profit = "Very High";
+				risk = "High";
+				msg = "High risk, the project is small.";
+			}
+			case "$1000+": {
+				profit = "Very High";
+				risk = "High";
+				msg =
+					"Project is small. Invest in parts, it's safer and more flexible.";
+			}
+		}
+	}
+
+	if (mc >= 250000 && mc < 1000000) {
+		switch (amount) {
+			case "$<100": {
+				profit = "Low";
+				risk = "Medium";
+				msg = "Medium-sized project";
+			}
+			case "$100-$500": {
+				profit = "Medium";
+				risk = "Medium";
+				msg = "Medium-sized project";
+			}
+			case "$500-$1000": {
+				profit = "Medium";
+				risk = "Medium";
+				msg = "Medium-sized project";
+			}
+			case "$1000+": {
+				profit = "High";
+				risk = "Medium";
+				msg = "Medium-sized project";
+			}
+		}
+	}
+
+	if (mc >= 1000000 && mc < 10000000) {
+		switch (amount) {
+			case "$<100": {
+				profit = "Very Low";
+				risk = "High";
+				msg =
+					"Large project. Be careful, small budgets are lost to fees and price swings.";
+			}
+			case "$100-$500": {
+				profit = "Low";
+				risk = "Medium";
+				msg = "Large project.";
+			}
+			case "$500-$1000": {
+				profit = "Medium";
+				risk = "Medium";
+				msg = "Large project.";
+			}
+			case "$1000+": {
+				profit = "High";
+				risk = "Low";
+				msg = "Large project.";
+			}
+		}
+	}
+
+	if (mc >= 10000000) {
+		switch (amount) {
+			case "$<100": {
+				profit = "Very Low";
+				risk = "Very Low";
+				msg =
+					"Project with large market cap Be careful, small budgets are lost to fees and price swings.";
+			}
+			case "$100-$500": {
+				profit = "Low";
+				risk = "High";
+				msg =
+					"Project with large market cap Be careful, small budgets are lost to fees and price swings.";
+			}
+			case "$500-$1000": {
+				profit = "Medium";
+				risk = "Medium";
+				msg = "Project with large market cap.";
+			}
+			case "$1000+": {
+				profit = "High";
+				risk = "Low";
+				msg = "Project with large market cap.";
+			}
+		}
+	}
+
+	return {
+		title: "Market cap",
+		profit,
+		risk,
+		msg,
+	};
+};
