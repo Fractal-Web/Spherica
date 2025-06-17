@@ -15,7 +15,7 @@ export const Cursor = ({ x, y }: Coords) => {
 			className={styles.ct}
 		>
 			<div className={styles.circle}></div>
-			<span className={styles.text}>Lounche</span>
+			<span className={styles.text}>Launch</span>
 		</motion.div>
 	);
 };
