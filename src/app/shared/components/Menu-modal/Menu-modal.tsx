@@ -19,7 +19,7 @@ const LINKS_MOBILE: HeaderLink[] = [
 	},
 	{
 		href: "#github",
-		text: "github",
+		text: "https://github.com/Fractal-Web/Spherica",
 	},
 	{
 		href: "#docs",
