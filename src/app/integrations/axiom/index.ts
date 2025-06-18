@@ -215,7 +215,7 @@ export const getSnipers = (snipersHold: string): MsgType => {
 
 	return {
 		title: "Snipers",
-		msg: `Snipers: ${snipersHold}g \n` + msg,
+		msg: `Snipers: ${snipersHold} \n` + msg,
 		risk,
 	};
 };
