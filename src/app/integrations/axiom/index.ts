@@ -86,8 +86,6 @@ export const getNumberOfHolders = (
 
 	const result = holders / oneProc;
 
-	console.log(result);
-
 	if (result <= 10) {
 		return {
 			title: "Holders",
@@ -209,7 +207,7 @@ export const getSnipers = (snipersHold: string): MsgType => {
 	}
 
 	return {
-		title: "Very Low Risk",
+		title: "Snipers",
 		msg,
 		risk,
 	};
@@ -285,8 +283,6 @@ export const getMarketCap = (mc: number, amount: AMOUNT): MsgType => {
 	let risk = "";
 	let profit = "";
 	let msg = "";
-
-	console.log(mc);
 
 	if (mc < 50000) {
 		switch (amount) {
@@ -411,8 +407,6 @@ export const getMarketCap = (mc: number, amount: AMOUNT): MsgType => {
 	if (mc >= 10000000) {
 		switch (amount) {
 			case "$<100": {
-				console.log("in the right one");
-
 				profit = "Very Low";
 				risk = "Very Low";
 				msg =
@@ -440,8 +434,6 @@ export const getMarketCap = (mc: number, amount: AMOUNT): MsgType => {
 			}
 		}
 	}
-
-	console.log("profit:", profit, "risk: ", risk);
 
 	return {
 		title: "Market cap",
