@@ -11,6 +11,10 @@
 	border-radius: 32px;
 	border: 1px solid #ffffff1a;
 	right: 0px;
+
+	@media (max-width: 768px) {
+		display: none;
+	}
 }
 
 .btn {

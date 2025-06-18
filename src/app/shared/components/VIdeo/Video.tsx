@@ -114,10 +114,10 @@ const Video = () => {
 								? { translateX: transformX }
 								: { height: transformSphereSize }
 						}
+						muted
 						autoPlay
 						loop
 						playsInline
-						muted
 					>
 						<source src={src} type={type} />
 					</motion.video>
