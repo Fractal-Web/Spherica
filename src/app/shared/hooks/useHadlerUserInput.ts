@@ -97,7 +97,7 @@ export default function useHandleUserInput({
 				);
 
 				const top10Holders = getTop10Holdersmsg(data.data.top10holders);
-				const liquidity = getLiquidity(mc, data.data.liquiditySol);
+				const liquidity = getLiquidity(mc, data.data.LiquidityUsdt);
 				const bundlers = getBundlersHold(data.data.bundlersHold);
 				const snipers = getSnipers(data.data.snipersHold);
 				const dexp = getDexscreener(data.data.dexPaid);
