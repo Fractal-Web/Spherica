@@ -286,29 +286,35 @@ export const getMarketCap = (mc: number, amount: AMOUNT): MsgType => {
 	let profit = "";
 	let msg = "";
 
+	console.log(mc);
+
 	if (mc < 50000) {
 		switch (amount) {
 			case "$<100": {
 				profit = "Very High";
 				risk = "Very High";
 				msg = "Project is at an early stage.";
+				break;
 			}
 			case "$100-$500": {
 				profit = "Very High";
 				risk = "Very High";
 				msg = "Project is at an early stage.";
+				break;
 			}
 			case "$500-$1000": {
 				profit = "Very High";
 				risk = "Very High";
 				msg =
 					"Project is at an early stage. Invest in parts, it's safer and more flexible.";
+				break;
 			}
 			case "$1000+": {
 				profit = "Very High";
 				risk = "Very High";
 				msg =
 					"Project is at an early stage. Invest in parts, it's safer and more flexible.";
+				break;
 			}
 		}
 	}
@@ -319,22 +325,26 @@ export const getMarketCap = (mc: number, amount: AMOUNT): MsgType => {
 				profit = "High";
 				risk = "High";
 				msg = "Project is small.";
+				break;
 			}
 			case "$100-$500": {
 				profit = "High";
 				risk = "High";
 				msg = "Project is small.";
+				break;
 			}
 			case "$500-$1000": {
 				profit = "Very High";
 				risk = "High";
 				msg = "High risk, the project is small.";
+				break;
 			}
 			case "$1000+": {
 				profit = "Very High";
 				risk = "High";
 				msg =
 					"Project is small. Invest in parts, it's safer and more flexible.";
+				break;
 			}
 		}
 	}
@@ -345,21 +355,25 @@ export const getMarketCap = (mc: number, amount: AMOUNT): MsgType => {
 				profit = "Low";
 				risk = "Medium";
 				msg = "Medium-sized project";
+				break;
 			}
 			case "$100-$500": {
 				profit = "Medium";
 				risk = "Medium";
 				msg = "Medium-sized project";
+				break;
 			}
 			case "$500-$1000": {
 				profit = "Medium";
 				risk = "Medium";
 				msg = "Medium-sized project";
+				break;
 			}
 			case "$1000+": {
 				profit = "High";
 				risk = "Medium";
 				msg = "Medium-sized project";
+				break;
 			}
 		}
 	}
@@ -371,21 +385,25 @@ export const getMarketCap = (mc: number, amount: AMOUNT): MsgType => {
 				risk = "High";
 				msg =
 					"Large project. Be careful, small budgets are lost to fees and price swings.";
+				break;
 			}
 			case "$100-$500": {
 				profit = "Low";
 				risk = "Medium";
 				msg = "Large project.";
+				break;
 			}
 			case "$500-$1000": {
 				profit = "Medium";
 				risk = "Medium";
 				msg = "Large project.";
+				break;
 			}
 			case "$1000+": {
 				profit = "High";
 				risk = "Low";
 				msg = "Large project.";
+				break;
 			}
 		}
 	}
@@ -393,29 +411,37 @@ export const getMarketCap = (mc: number, amount: AMOUNT): MsgType => {
 	if (mc >= 10000000) {
 		switch (amount) {
 			case "$<100": {
+				console.log("in the right one");
+
 				profit = "Very Low";
 				risk = "Very Low";
 				msg =
 					"Project with large market cap Be careful, small budgets are lost to fees and price swings.";
+				break;
 			}
 			case "$100-$500": {
 				profit = "Low";
 				risk = "High";
 				msg =
 					"Project with large market cap Be careful, small budgets are lost to fees and price swings.";
+				break;
 			}
 			case "$500-$1000": {
 				profit = "Medium";
 				risk = "Medium";
 				msg = "Project with large market cap.";
+				break;
 			}
 			case "$1000+": {
 				profit = "High";
 				risk = "Low";
 				msg = "Project with large market cap.";
+				break;
 			}
 		}
 	}
+
+	console.log("profit:", profit, "risk: ", risk);
 
 	return {
 		title: "Market cap",

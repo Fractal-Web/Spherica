@@ -28,8 +28,6 @@ export const Chat = () => {
 		(state) => state.axiomChatReducer
 	);
 
-	console.log(messages);
-
 	const isMobile = useMediaQuery("(max-width: 768px)");
 
 	useEffect(() => {

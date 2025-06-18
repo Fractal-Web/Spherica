@@ -73,80 +73,81 @@ export default function useHandleUserInput({
 			})
 		);
 
-		const resp = await fetch("http://157.180.34.119:5523/backend/axiom", {
-			method: "POST",
-			body: JSON.stringify({ address }),
-			headers: {
-				"Content-Type": "application/json",
-			},
-		});
-
-		const { data, error } = await resp.json();
-
-		console.log(data);
-
-		// if (error) {
-		// 	console.log("inside is Error");
-
-		// 	onNewMessageRecived({
-		// 		isLoading: false,
-		// 		message: {
-		// 			text: {
-		// 				msg: error,
-		// 				title: "Error",
-		// 			},
-		// 			type: "outcoming",
-		// 		},
-		// 	});
-		// 	return;
-		// }
-
-		if (data.data && !error) {
-			const mc = data.data.marketCapUsdt;
-
-			const marketCap = getMarketCap(mc, amount);
-			const numberOfHolders = getNumberOfHolders(
-				mc,
-				data.data.numOfHolders
+		try {
+			const resp = await fetch(
+				"http://157.180.34.119:5523/backend/axiom",
+				{
+					method: "POST",
+					body: JSON.stringify({ address }),
+					headers: {
+						"Content-Type": "application/json",
+					},
+				}
 			);
 
-			const top10Holders = getTop10Holdersmsg(data.data.top10holders);
-			const liquidity = getLiquidity(mc, data.data.liquiditySol);
-			const bundlers = getBundlersHold(data.data.bundlersHold);
-			const snipers = getSnipers(data.data.snipersHold);
-			const dexp = getDexscreener(data.data.dexPaid);
+			const { data, error } = await resp.json();
 
-			const tokneProps: AxiomMessage["text"][] = [
-				marketCap,
-				top10Holders,
-				numberOfHolders,
-				liquidity,
-				bundlers,
-				snipers,
-				dexp,
-			];
+			if (data.data && !error) {
+				const mc = data.data.marketCapUsdt;
 
-			for (let i = 0; i < tokneProps.length; ++i) {
+				const marketCap = getMarketCap(mc, amount);
+				const numberOfHolders = getNumberOfHolders(
+					mc,
+					data.data.numOfHolders
+				);
+
+				const top10Holders = getTop10Holdersmsg(data.data.top10holders);
+				const liquidity = getLiquidity(mc, data.data.liquiditySol);
+				const bundlers = getBundlersHold(data.data.bundlersHold);
+				const snipers = getSnipers(data.data.snipersHold);
+				const dexp = getDexscreener(data.data.dexPaid);
+
+				const tokneProps: AxiomMessage["text"][] = [
+					marketCap,
+					top10Holders,
+					numberOfHolders,
+					liquidity,
+					bundlers,
+					snipers,
+					dexp,
+				];
+
+				for (let i = 0; i < tokneProps.length; ++i) {
+					dispatch(
+						onNewMessageRecived({
+							isLoading: false,
+							message: {
+								text: {
+									...tokneProps[i],
+									title: `${i + 1}. ` + tokneProps[i].title,
+								},
+								type: "outcoming",
+							},
+						})
+					);
+				}
+			} else {
 				dispatch(
 					onNewMessageRecived({
 						isLoading: false,
 						message: {
 							text: {
-								...tokneProps[i],
-								title: `${i + 1}. ` + tokneProps[i].title,
+								msg: error,
+								title: "Error",
 							},
 							type: "outcoming",
 						},
 					})
 				);
 			}
-		} else {
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		} catch (err: any) {
 			dispatch(
 				onNewMessageRecived({
 					isLoading: false,
 					message: {
 						text: {
-							msg: error,
+							msg: err?.message ?? "Something went wrong",
 							title: "Error",
 						},
 						type: "outcoming",
