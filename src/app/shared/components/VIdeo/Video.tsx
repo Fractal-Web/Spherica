@@ -15,11 +15,11 @@ export interface Coords {
 	y: number;
 }
 
-const SPHERE_SAFARI = "/assets/videos/sphere.mov";
-const SPHERE_SAFARI_TYPE = "video/quicktime";
+export const SPHERE_SAFARI = "/assets/videos/sphere.mov";
+export const SPHERE_SAFARI_TYPE = "video/quicktime";
 
-const SPHERE = "/assets/videos/sphere.webm";
-const SPHERE_TYPE = "video/webm";
+export const SPHERE = "/assets/videos/sphere.webm";
+export const SPHERE_TYPE = "video/webm";
 
 type MouseEventT = React.MouseEvent<HTMLDivElement, MouseEvent>;
 

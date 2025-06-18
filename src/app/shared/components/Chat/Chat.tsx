@@ -11,6 +11,13 @@ import { UserMessage } from "./User-message/UserMessage";
 import { AxioMessage } from "./Axiom-message/AxiomMessage";
 import { useMediaQuery } from "usehooks-ts";
 import { Loading } from "./Loading/Loading";
+import {
+	SPHERE,
+	SPHERE_SAFARI,
+	SPHERE_SAFARI_TYPE,
+	SPHERE_TYPE,
+} from "../VIdeo/Video";
+import { isSafari, isIOS } from "react-device-detect";
 
 const AMOUNTS: AMOUNT[] = ["$<100", "$100-$500", "$500-$1000", "$1000+"];
 
@@ -35,6 +42,9 @@ export const Chat = () => {
 			setMoveSphere(true);
 		}
 	}, [messages, isLoading]);
+
+	const src = isSafari || isIOS ? SPHERE_SAFARI : SPHERE;
+	const type = isSafari || isIOS ? SPHERE_SAFARI_TYPE : SPHERE_TYPE;
 
 	return (
 		<div className={styles.chat}>
@@ -109,7 +119,13 @@ export const Chat = () => {
 			<motion.video
 				animate={
 					!isMobile && moveSphere
-						? { transform: "translate(-180%,45%) scale(0.4)" }
+						? // { transform: "translate(-180%,45%) scale(0.4)" }
+						  {
+								transform: "translate(-50%, -50%) scale(0.4)",
+								left: "50px",
+								top: "unset",
+								bottom: "-15px",
+						  }
 						: {}
 				}
 				className={styles.video}
@@ -118,10 +134,7 @@ export const Chat = () => {
 				playsInline
 				muted
 			>
-				<source
-					src={"/assets/videos/sphere.webm"}
-					type={"video/webm"}
-				/>
+				<source src={src} type={type} />
 			</motion.video>
 			{!messages.length && !isLoading ? (
 				<p className={styles.suggest}>Enter the address for auditing</p>
