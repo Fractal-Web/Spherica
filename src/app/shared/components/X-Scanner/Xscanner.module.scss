@@ -8,6 +8,10 @@
 	overflow: hidden;
 	height: 531px;
 
+	@media (min-height: 840px) {
+		height: 455px;
+	}
+
 	@media (max-width: 768px) {
 		min-height: 422px;
 	}

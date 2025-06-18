@@ -47,6 +47,10 @@
 		color: #ffffff99;
 	}
 
+	@media (max-height: 840px) {
+		padding: 20px 0px;
+	}
+
 	@media (max-width: 768px) {
 		position: absolute;
 		bottom: 70px;

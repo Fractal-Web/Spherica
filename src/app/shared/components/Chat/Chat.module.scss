@@ -8,6 +8,11 @@
 	@media (max-width: 768px) {
 		min-height: 400px;
 	}
+
+	@media (min-height: 840px) {
+		height: 455px;
+	}
+
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
