@@ -18,6 +18,13 @@ function getClosestExponentOfTen(value: number) {
 	}
 }
 
+function formatUsd(value: number) {
+	if (isNaN(value)) return "N/A";
+	if (value >= 1_000_000) return `$${(value / 1_000_000)?.toFixed(1)}M`;
+	if (value >= 1_000) return `$${(value / 1_000)?.toFixed(0)}K`;
+	return `$${value?.toFixed(0)}`;
+}
+
 export const getTop10Holdersmsg = (top10holders: string): MsgType => {
 	const holdersPercentage = parseFloat(top10holders.split("%")[0] ?? 0);
 
@@ -54,7 +61,7 @@ export const getTop10Holdersmsg = (top10holders: string): MsgType => {
 
 	return {
 		title: "10% Holders",
-		msg,
+		msg: msg + `\n Holders: ${top10holders}`,
 		risk,
 	};
 };
@@ -91,7 +98,7 @@ export const getNumberOfHolders = (
 			title: "Holders",
 			msg: `Holder count is slightly below the expected level (~${result.toFixed(
 				2
-			)}%), but the market remains stable.`,
+			)}%, ${holders}), but the market remains stable.`,
 			risk: "Low Risk.",
 		};
 	}
@@ -101,7 +108,7 @@ export const getNumberOfHolders = (
 			title: "Holders",
 			msg: `Decreased holder count (~${result.toFixed(
 				2
-			)}%) increases the chance of large holders influencing the price.`,
+			)}%, ${holders}) increases the chance of large holders influencing the price.`,
 			risk: "Medium Risk",
 		};
 	}
@@ -111,7 +118,7 @@ export const getNumberOfHolders = (
 			title: "Holders",
 			msg: `Low holder count (~${result.toFixed(
 				2
-			)}%) raises the risk of sharp price swings and manipulation."`,
+			)}%, ${holders}) raises the risk of sharp price swings and manipulation."`,
 			risk: "High Risk!",
 		};
 	}
@@ -121,7 +128,7 @@ export const getNumberOfHolders = (
 			title: "Holders",
 			msg: `Significantly low holder count (<${result.toFixed(
 				2
-			)}%) poses a high risk of manipulation and strong volatility.`,
+			)}%, ${holders}) poses a high risk of manipulation and strong volatility.`,
 			risk: "Very High Risk!",
 		};
 	}
@@ -169,7 +176,7 @@ export const getBundlersHold = (bundlers: string) => {
 
 	return {
 		title: "Bundlers",
-		msg,
+		msg: `Bundlers: ${bundlers} \n` + msg,
 		risk,
 	};
 };
@@ -208,7 +215,7 @@ export const getSnipers = (snipersHold: string): MsgType => {
 
 	return {
 		title: "Snipers",
-		msg,
+		msg: `Snipers: ${snipersHold}g \n` + msg,
 		risk,
 	};
 };
@@ -275,7 +282,7 @@ export const getLiquidity = (
 	return {
 		title: "Liquidity ",
 		risk,
-		msg,
+		msg: parseFloat(liquidityToken).toFixed(2) + " " + msg,
 	};
 };
 
@@ -439,6 +446,6 @@ export const getMarketCap = (mc: number, amount: AMOUNT): MsgType => {
 		title: "Market cap",
 		profit,
 		risk,
-		msg,
+		msg: msg + `\n Market cap: ${formatUsd(mc)}`,
 	};
 };
