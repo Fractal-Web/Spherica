@@ -15,7 +15,7 @@ export const Cursor = ({ x, y }: Coords) => {
 			className={styles.ct}
 		>
 			<div className={styles.circle}></div>
-			<span className={styles.text}>Launch</span>
+			<span className={styles.text}>Press to launch</span>
 		</motion.div>
 	);
 };

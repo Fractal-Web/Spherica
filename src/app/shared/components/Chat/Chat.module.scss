@@ -106,6 +106,7 @@
 	width: 100%;
 	max-width: 150px;
 	height: auto;
+	pointer-events: none;
 
 	@media (max-width: 768px) {
 		left: 15px;

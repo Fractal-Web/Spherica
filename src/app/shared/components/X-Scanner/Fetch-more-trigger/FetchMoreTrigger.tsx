@@ -6,17 +6,22 @@ import { useAppSelector, useStoreDispatch } from "@/app/integrations/redux";
 import {
 	selectCurrentPage,
 	selectTotalPages,
+	selectTweets,
 } from "@/app/integrations/redux/selectors";
 import {
 	onPageChange,
 	onTotalPagesChange,
 	onUpdateTweets,
 } from "@/app/integrations/redux/slice";
-import { fetchTweets } from "@/app/integrations/redux/sagas";
+import {
+	BASE_TWEETS_PER_PAGE,
+	fetchTweets,
+} from "@/app/integrations/redux/sagas";
 
 export const FetchMoreTrigger = () => {
 	const currentPage = useAppSelector(selectCurrentPage);
 	const totalPages = useAppSelector(selectTotalPages);
+	const totalTweets = useAppSelector(selectTweets);
 
 	const [hasFetched, setHasFetched] = useState(false);
 
@@ -28,7 +33,11 @@ export const FetchMoreTrigger = () => {
 
 	useEffect(() => {
 		const fetchMore = async (page: number) => {
-			const data = await fetchTweets({ page });
+			//Fetch 3 more tweets when we hit the last one
+			const data = await fetchTweets({
+				page,
+				count: BASE_TWEETS_PER_PAGE + 3,
+			});
 
 			if (data) {
 				dispatch(onUpdateTweets(data.tweets));
@@ -36,14 +45,16 @@ export const FetchMoreTrigger = () => {
 			}
 		};
 
-		if (inView && totalPages) {
-			if (currentPage < totalPages && !hasFetched) {
-				dispatch(onPageChange(currentPage + 1));
-				fetchMore(currentPage + 1);
-				setHasFetched(true);
+		if (totalTweets.length < 8) {
+			if (inView && totalPages) {
+				if (currentPage < totalPages && !hasFetched) {
+					dispatch(onPageChange(currentPage + 1));
+					fetchMore(currentPage + 1);
+					setHasFetched(true);
+				}
 			}
 		}
-	}, [inView, totalPages, currentPage, dispatch, hasFetched]);
+	}, [inView, totalPages, currentPage, dispatch, hasFetched, totalTweets]);
 
 	return <div className={styles.ct} ref={ref} />;
 };

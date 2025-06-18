@@ -282,7 +282,7 @@ export const getLiquidity = (
 	return {
 		title: "Liquidity ",
 		risk,
-		msg: parseFloat(liquidityToken).toFixed(2) + " " + msg,
+		msg: parseFloat(liquidityToken).toFixed(2) + "$ " + msg,
 	};
 };
 

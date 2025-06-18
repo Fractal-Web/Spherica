@@ -13,7 +13,7 @@ import {
 import { RootState } from ".";
 import { AppState } from "./types";
 
-const BASE_TWEETS_PER_PAGE = 5;
+export const BASE_TWEETS_PER_PAGE = 5;
 const INTERVAL = 10 * 60 * 1000;
 
 interface FetchTweetsReturnValue {
@@ -23,15 +23,17 @@ interface FetchTweetsReturnValue {
 
 export const fetchTweets = async ({
 	page,
+	count,
 }: {
 	page: number;
+	count?: number;
 }): Promise<FetchTweetsReturnValue | undefined> => {
+	const fetchCount = count ? count : page * BASE_TWEETS_PER_PAGE;
+
 	try {
 		const [tweetsRes, tweetsOverall] = await Promise.all([
 			fetch(
-				`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/posts2?count=${
-					BASE_TWEETS_PER_PAGE * page
-				}`
+				`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/posts2?count=${fetchCount}`
 			),
 			fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/twitter-status`),
 		]);

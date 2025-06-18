@@ -40,7 +40,7 @@ const LINKS: HeaderLink[] = [
 		text: "roadmap",
 	},
 	{
-		href: "#github",
+		href: "https://github.com/Fractal-Web/Spherica",
 		text: "github",
 	},
 	{

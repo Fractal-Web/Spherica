@@ -32,6 +32,7 @@ interface useSphereAnimationReturnValue {
 
 const useSphereAnimations = (): useSphereAnimationReturnValue => {
 	const { scrollYProgress } = useScroll();
+
 	//For desktop
 	const transformX = useTransform(scrollYProgress, [0, 0.18], ["0%", "45%"]);
 	//for mobile
@@ -109,6 +110,7 @@ const Video = () => {
 			>
 				<div className={styles.videoCt}>
 					<motion.video
+						className={styles.video}
 						style={
 							!isMobile
 								? { translateX: transformX }
