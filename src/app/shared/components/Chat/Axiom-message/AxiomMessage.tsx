@@ -79,7 +79,9 @@ export const AxioMessage = ({
 									{message.text.risk}
 								</p>
 							</div>
-							<p className={styles.msg}>{message.text.msg}</p>
+							{message.text.msg && (
+								<p className={styles.msg}>{message.text.msg}</p>
+							)}
 							{message.text.extraInfo && (
 								<div className={styles.ct4}>
 									<p className={styles.textW}>
@@ -99,7 +101,23 @@ export const AxioMessage = ({
 									{message.text.risk}
 								</p>
 							)}
-							<p className={styles.msg}>{message.text.msg}</p>
+							{message.text.msg && (
+								<p className={styles.msg}>{message.text.msg}</p>
+							)}
+							{message.text.compaundMsg && (
+								<p className={styles.msg}>
+									<span>
+										{message.text.compaundMsg.first}
+									</span>
+									<span
+										style={{ padding: 0 }}
+										className={styles.value}
+									>
+										{message.text.compaundMsg.value}
+									</span>
+									<span>{message.text.compaundMsg.last}</span>
+								</p>
+							)}
 							{message.text.extraInfo && (
 								<div className={styles.ct4}>
 									<p className={styles.textW}>

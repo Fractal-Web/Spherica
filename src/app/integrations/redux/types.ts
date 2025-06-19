@@ -12,10 +12,15 @@ export interface AxiomMessage extends BaseMessage {
 	text: {
 		title: string;
 		risk?: string;
-		msg: string;
+		msg?: string;
 		profit?: string;
 		extraInfo?: {
 			text: string;
+			value: string;
+		};
+		compaundMsg?: {
+			first: string;
+			last: string;
 			value: string;
 		};
 	};

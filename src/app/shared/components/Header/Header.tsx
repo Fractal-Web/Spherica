@@ -30,7 +30,7 @@ export type HeaderLink = {
 
 const SOCIALS: { src: StaticImageData; href: string }[] = [
 	{ src: link1, href: "https://x.com/spherica_labs" },
-	{ src: link2, href: "maito:contact@spherica.io" },
+	{ src: link2, href: "mailto:contact@spherica.io" },
 	{ src: link3, href: "https://t.me/sphericachannel" },
 ];
 
@@ -73,7 +73,11 @@ export const Header = () => {
 
 				<div className={styles.links}>
 					{SOCIALS.map((el, i) => (
-						<NextLink target="_blank" href={el.href} key={i}>
+						<NextLink
+							target={i == 1 ? "_self" : "_blank"}
+							href={el.href}
+							key={i}
+						>
 							<Image src={el.src} alt="social-icon" />
 						</NextLink>
 					))}

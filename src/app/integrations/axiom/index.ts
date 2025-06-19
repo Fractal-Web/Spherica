@@ -100,10 +100,12 @@ export const getNumberOfHolders = (
 	if (result <= 10) {
 		return {
 			title: "Holders",
-			msg: `Holder count is slightly below the expected level (~${result.toFixed(
-				2
-			)}%, ${holders}), but the market remains stable.`,
 			risk: "Low Risk.",
+			compaundMsg: {
+				first: "Holder count is slightly below the expected level ",
+				last: "but the market remains stable.",
+				value: `(~${result.toFixed(2)}%, ${holders}), `,
+			},
 		};
 	}
 
