@@ -12,10 +12,7 @@ import {
 	onTotalPagesChange,
 	onUpdateTweets,
 } from "@/app/integrations/redux/slice";
-import {
-	BASE_TWEETS_PER_PAGE,
-	fetchTweets,
-} from "@/app/integrations/redux/sagas";
+import { fetchTweets } from "@/app/integrations/redux/sagas";
 
 export const FetchMoreTrigger = () => {
 	const currentPage = useAppSelector(selectCurrentPage);
@@ -35,7 +32,6 @@ export const FetchMoreTrigger = () => {
 			//Fetch 3 more tweets when we hit the last one
 			const data = await fetchTweets({
 				page,
-				count: BASE_TWEETS_PER_PAGE + 3,
 			});
 
 			if (data) {
