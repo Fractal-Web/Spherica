@@ -75,7 +75,7 @@ export default function useHandleUserInput({
 
 		try {
 			const resp = await fetch(
-				"http://157.180.34.119:5523/backend/axiom",
+				process.env.NEXT_PUBLIC_BACKEND_API_URL_AXIOM!,
 				{
 					method: "POST",
 					body: JSON.stringify({ address }),
