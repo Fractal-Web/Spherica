@@ -1,6 +1,6 @@
 .message {
 	width: 100%;
-	max-width: 60%;
+	max-width: 66.72%;
 	margin-left: 100px;
 	background: linear-gradient(
 		230.72deg,
@@ -15,7 +15,7 @@
 
 	@media (max-width: 768px) {
 		margin-left: 75px;
-		// max-width: 50%;
+		max-width: 70%;
 	}
 }
 
@@ -25,8 +25,6 @@
 }
 
 .ct2 {
-	padding: 16px;
-
 	background: linear-gradient(
 		230.72deg,
 		rgba(105, 71, 243, 0.1) 2.2%,
@@ -38,6 +36,7 @@
 	color: #fff;
 	text-wrap: wrap;
 	overflow-wrap: break-word;
+	padding: 16px;
 	@media (max-width: 768px) {
 		font-size: 12px;
 	}
@@ -49,6 +48,29 @@
 	line-height: 1.65;
 	letter-spacing: normal;
 	color: #ffffff4d !important;
+
+	position: relative;
+
+	&::after {
+		content: " ";
+		position: absolute;
+		height: 1px;
+		left: 0px;
+		right: 0px;
+		bottom: 0px;
+		background: linear-gradient(
+			230.72deg,
+			rgba(105, 71, 243, 0.5) 2.2%,
+			rgba(101, 182, 243, 0.5) 88.33%
+		);
+	}
+	padding: 0px 16px;
+	padding-bottom: 12px;
+	background: linear-gradient(230.72deg, #6947f3 2.2%, #65b6f3 88.33%);
+
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
 }
 
 .risk {
@@ -56,15 +78,17 @@
 	font-size: 14px;
 	line-height: 1.65;
 	letter-spacing: normal;
+	padding: 0px 16px;
 }
 
 .msg {
 	font-weight: 300;
-	font-size: 12px;
+	font-size: 14px;
 	line-height: 1.65;
 	letter-spacing: normal;
 	color: #fff;
 	white-space: pre-line;
+	padding: 0px 16px;
 }
 
 .ct3 {
@@ -72,6 +96,7 @@
 	display: flex;
 	flex-direction: column;
 	gap: 8px;
+	padding: 16px 0px;
 }
 
 .medium {
@@ -82,11 +107,7 @@
 }
 
 .low {
-	background: linear-gradient(230.72deg, #6947f3 2.2%, #65b6f3 88.33%);
-
-	-webkit-background-clip: text;
-	background-clip: text;
-	color: transparent;
+	color: #38ff2a;
 }
 
 .default {
@@ -107,4 +128,14 @@
 	letter-spacing: normal;
 	color: #fff;
 	white-space: pre-line;
+	padding: 0px 16px;
+}
+
+.value {
+	font-weight: 600;
+	font-size: 14px;
+	line-height: 1.65;
+	letter-spacing: normal;
+	color: #fff;
+	padding-right: 16px;
 }

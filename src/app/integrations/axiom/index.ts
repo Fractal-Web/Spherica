@@ -61,8 +61,12 @@ export const getTop10Holdersmsg = (top10holders: string): MsgType => {
 
 	return {
 		title: "10% Holders",
-		msg: msg + `\n Holders: ${top10holders}`,
+		msg: msg,
 		risk,
+		extraInfo: {
+			text: "Holders: ",
+			value: top10holders,
+		},
 	};
 };
 
@@ -140,7 +144,7 @@ export const getNumberOfHolders = (
 	};
 };
 
-export const getBundlersHold = (bundlers: string) => {
+export const getBundlersHold = (bundlers: string): MsgType => {
 	const bundlersPercentage = parseFloat(bundlers.split("%")[0] ?? 0);
 
 	let risk = "";
@@ -176,8 +180,12 @@ export const getBundlersHold = (bundlers: string) => {
 
 	return {
 		title: "Bundlers",
-		msg: `Bundlers: ${bundlers} \n` + msg,
+		msg: msg,
 		risk,
+		extraInfo: {
+			text: "Bundlers: ",
+			value: bundlers,
+		},
 	};
 };
 
@@ -215,8 +223,12 @@ export const getSnipers = (snipersHold: string): MsgType => {
 
 	return {
 		title: "Snipers",
-		msg: `Snipers: ${snipersHold} \n` + msg,
+		msg: msg,
 		risk,
+		extraInfo: {
+			text: "Snipers: ",
+			value: snipersHold,
+		},
 	};
 };
 
@@ -282,7 +294,11 @@ export const getLiquidity = (
 	return {
 		title: "Liquidity ",
 		risk,
-		msg: parseFloat(liquidityToken).toFixed(2) + "$ " + msg,
+		msg: msg,
+		extraInfo: {
+			text: "Liquidity: ",
+			value: `$${parseFloat(liquidityToken).toFixed(2)}`,
+		},
 	};
 };
 
@@ -446,6 +462,10 @@ export const getMarketCap = (mc: number, amount: AMOUNT): MsgType => {
 		title: "Market cap",
 		profit,
 		risk,
-		msg: msg + `\n Market cap: ${formatUsd(mc)}`,
+		msg: msg,
+		extraInfo: {
+			text: `Market cap: `,
+			value: formatUsd(mc),
+		},
 	};
 };

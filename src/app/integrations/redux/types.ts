@@ -14,6 +14,10 @@ export interface AxiomMessage extends BaseMessage {
 		risk?: string;
 		msg: string;
 		profit?: string;
+		extraInfo?: {
+			text: string;
+			value: string;
+		};
 	};
 	type: "outcoming";
 }
