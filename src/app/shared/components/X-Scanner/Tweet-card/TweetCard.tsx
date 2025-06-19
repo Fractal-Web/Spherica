@@ -40,7 +40,7 @@ export const TweetCard = ({
 	};
 
 	return (
-		<div className={clsx(styles.tweet, className)}>
+		<div onMouseOver={onHoverNew} className={clsx(styles.tweet, className)}>
 			<div className={styles.ct}>
 				{avatar && (
 					<Image
@@ -58,7 +58,6 @@ export const TweetCard = ({
 							<AnimatePresence>
 								{isNew && !wasHovered && (
 									<motion.span
-										onMouseOver={onHoverNew}
 										initial={{ opacity: 1 }}
 										exit={{ opacity: 0 }}
 										transition={{
