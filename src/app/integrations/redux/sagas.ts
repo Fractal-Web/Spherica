@@ -59,7 +59,7 @@ export const fetchTweets = async ({
 
 function* onSelectIsActive() {
 	const isActive: boolean = yield select(
-		(state: RootState) => state.appReducer.isWidgetActive
+		(state: RootState) => state.appReducer.withNotification
 	);
 
 	return isActive;
@@ -95,6 +95,7 @@ function* onUpdateTweets() {
 
 export function* rootSaga() {
 	yield take(actions.onStartWidget);
+	yield call(onUpdateTweets);
 	let isActive: boolean = yield call(onSelectIsActive);
 
 	while (true) {
@@ -102,7 +103,7 @@ export function* rootSaga() {
 			yield call(onUpdateTweets);
 			yield delay(INTERVAL);
 		} else {
-			yield take(actions.onStartWidget);
+			yield take(actions.onToggleNotification);
 		}
 		isActive = yield call(onSelectIsActive);
 	}

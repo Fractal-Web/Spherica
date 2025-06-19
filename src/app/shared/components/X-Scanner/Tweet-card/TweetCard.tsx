@@ -1,9 +1,11 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import styles from "./TweetCard.module.scss";
 import Image from "next/image";
 import Link from "next/link";
 import { formatDateToShort } from "@/app/shared/utils";
 import clsx from "clsx";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface TweetCardProps {
 	avatar: string;
@@ -14,6 +16,7 @@ interface TweetCardProps {
 	created_at: string;
 	className?: string;
 	isRetweet?: boolean;
+	isNew?: boolean;
 }
 
 export const TweetCard = ({
@@ -25,23 +28,50 @@ export const TweetCard = ({
 	created_at,
 	className,
 	isRetweet,
+	isNew,
 }: TweetCardProps) => {
 	const formatedUsername =
 		username.length > 12 ? username.slice(0, 9) + "..." : username;
 
+	const [wasHovered, setWasHovered] = useState(false);
+
+	const onHoverNew = () => {
+		setWasHovered(true);
+	};
+
 	return (
 		<div className={clsx(styles.tweet, className)}>
 			<div className={styles.ct}>
-				<Image
-					className={styles.avatar}
-					src={avatar}
-					width={40}
-					height={40}
-					alt="profile-img"
-				/>
+				{avatar && (
+					<Image
+						className={styles.avatar}
+						src={avatar}
+						width={40}
+						height={40}
+						alt="profile-img"
+					/>
+				)}
 				<div className={styles.ct2}>
 					<div className={styles.ct3}>
-						<span>{name}</span>
+						<div className={styles.ct6}>
+							<span>{name}</span>
+							<AnimatePresence>
+								{isNew && !wasHovered && (
+									<motion.span
+										onMouseOver={onHoverNew}
+										initial={{ opacity: 1 }}
+										exit={{ opacity: 0 }}
+										transition={{
+											ease: "linear",
+											duration: 0.3,
+										}}
+										className={styles.new}
+									>
+										new
+									</motion.span>
+								)}
+							</AnimatePresence>
+						</div>
 						<div className={styles.ct4}>
 							<Link
 								target="_blank"

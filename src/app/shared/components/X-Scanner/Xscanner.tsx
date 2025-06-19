@@ -75,6 +75,7 @@ export const Xscanner = () => {
 								<>
 									{tweets.map((tweet, i) => (
 										<Tweet
+											isNew={i === 0}
 											isLast={i === tweets.length - 1}
 											{...tweet}
 											key={i}

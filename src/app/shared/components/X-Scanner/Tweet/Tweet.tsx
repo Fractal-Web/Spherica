@@ -8,6 +8,7 @@ import { FetchMoreTrigger } from "../Fetch-more-trigger/FetchMoreTrigger";
 
 interface TweetProps extends UserTweet {
 	isLast?: boolean;
+	isNew?: boolean;
 }
 
 export const Tweet = ({
@@ -24,6 +25,7 @@ export const Tweet = ({
 	q_username,
 	username,
 	isLast,
+	isNew,
 }: TweetProps) => {
 	const isQuotedTwitt = q_avatar && q_description && q_username && q_name;
 
@@ -36,6 +38,7 @@ export const Tweet = ({
 			className={styles.ct}
 		>
 			<TweetCard
+				isNew={isNew}
 				avatar={avatar}
 				name={name}
 				description={description}
