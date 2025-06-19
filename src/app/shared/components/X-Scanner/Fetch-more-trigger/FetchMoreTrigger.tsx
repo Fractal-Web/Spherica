@@ -6,7 +6,6 @@ import { useAppSelector, useStoreDispatch } from "@/app/integrations/redux";
 import {
 	selectCurrentPage,
 	selectTotalPages,
-	selectTweets,
 } from "@/app/integrations/redux/selectors";
 import {
 	onPageChange,
@@ -21,7 +20,7 @@ import {
 export const FetchMoreTrigger = () => {
 	const currentPage = useAppSelector(selectCurrentPage);
 	const totalPages = useAppSelector(selectTotalPages);
-	const totalTweets = useAppSelector(selectTweets);
+	// const totalTweets = useAppSelector(selectTweets);
 
 	const [hasFetched, setHasFetched] = useState(false);
 
@@ -45,16 +44,16 @@ export const FetchMoreTrigger = () => {
 			}
 		};
 
-		if (totalTweets.length < 8) {
-			if (inView && totalPages) {
-				if (currentPage < totalPages && !hasFetched) {
-					dispatch(onPageChange(currentPage + 1));
-					fetchMore(currentPage + 1);
-					setHasFetched(true);
-				}
+		if (inView && totalPages) {
+			if (currentPage < totalPages && !hasFetched) {
+				dispatch(onPageChange(currentPage + 1));
+				fetchMore(currentPage + 1);
+				setHasFetched(true);
 			}
 		}
-	}, [inView, totalPages, currentPage, dispatch, hasFetched, totalTweets]);
+		// if (totalTweets.length < 8) {
+		// }
+	}, [inView, totalPages, currentPage, dispatch, hasFetched]);
 
 	return <div className={styles.ct} ref={ref} />;
 };

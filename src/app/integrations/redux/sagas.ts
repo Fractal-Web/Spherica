@@ -14,7 +14,7 @@ import { RootState } from ".";
 import { AppState } from "./types";
 
 export const BASE_TWEETS_PER_PAGE = 5;
-const INTERVAL = 10 * 60 * 1000;
+const INTERVAL = 1 * 30 * 1000;
 
 interface FetchTweetsReturnValue {
 	tweets: UserTweet[];
