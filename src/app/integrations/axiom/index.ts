@@ -84,7 +84,9 @@ export const getNumberOfHolders = (
 
 	const optimalHolders = (marketCap = fixVal2);
 
-	const result = (parseInt(numOfHolders) / optimalHolders) * 100;
+	const result = Math.abs(
+		(parseInt(numOfHolders) / optimalHolders - 1) * 100
+	);
 
 	// console.log("mc: ", marketCap, "holders: ", numOfHolders);
 
@@ -114,11 +116,11 @@ export const getNumberOfHolders = (
 
 	// console.log("res2", (holders / optimalHolders) * 100);
 
-	// console.log("fix-value", fixValue);
-	// console.log("mk ", marketCap);
-	// console.log("holders: ", numOfHolders);
-	// console.log("optimal-holders: ", optimalHolders);
-	// console.log("res: ", result);
+	console.log("fix-value", fixValue);
+	console.log("mk ", marketCap);
+	console.log("holders: ", numOfHolders);
+	console.log("optimal-holders: ", optimalHolders);
+	console.log("res: ", result);
 
 	if (parseInt(numOfHolders) > optimalHolders || result <= 9)
 		return {
