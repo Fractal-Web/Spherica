@@ -88,40 +88,6 @@ export const getNumberOfHolders = (
 		(parseInt(numOfHolders) / optimalHolders - 1) * 100
 	);
 
-	// console.log("mc: ", marketCap, "holders: ", numOfHolders);
-
-	// const holders = parseInt(numOfHolders);
-
-	// const DEFAULT_POW = 1.456;
-
-	// const exponent = getClosestExponentOfTen(marketCap);
-
-	// console.log("exp: ", exponent);
-
-	// const powValue = DEFAULT_POW * exponent;
-
-	// console.log("pow-val: ", powValue);
-
-	// const mc = Math.pow(10, powValue);
-
-	// const optimalHolders = (0.0000526 * mc) / 100;
-
-	// console.log("optimal holders", optimalHolders);
-
-	// const oneProc = optimalHolders / 100;
-
-	// const result = holders / oneProc;
-
-	// console.log("res1", result);
-
-	// console.log("res2", (holders / optimalHolders) * 100);
-
-	console.log("fix-value", fixValue);
-	console.log("mk ", marketCap);
-	console.log("holders: ", numOfHolders);
-	console.log("optimal-holders: ", optimalHolders);
-	console.log("res: ", result);
-
 	if (parseInt(numOfHolders) > optimalHolders || result <= 9)
 		return {
 			title: "Holders",
