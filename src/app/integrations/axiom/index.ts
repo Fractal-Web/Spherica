@@ -437,7 +437,7 @@ export const getMarketCap = (mc: number, amount: AMOUNT): MsgType => {
 		switch (amount) {
 			case "$<100": {
 				profit = "Very Low";
-				risk = "Very Low";
+				risk = "Very High";
 				msg =
 					"Project with large market cap Be careful, small budgets are lost to fees and price swings.";
 				break;
