@@ -3,20 +3,20 @@ import { AxiomMessage } from "../redux/types";
 
 type MsgType = AxiomMessage["text"];
 
-function getClosestExponentOfTen(value: number) {
-	const exponent = Math.log10(value);
-	const lower = Math.floor(exponent);
-	const upper = Math.ceil(exponent);
+// function getClosestExponentOfTen(value: number) {
+// 	const exponent = Math.log10(value);
+// 	const lower = Math.floor(exponent);
+// 	const upper = Math.ceil(exponent);
 
-	const lowerPower = Math.pow(10, lower);
-	const upperPower = Math.pow(10, upper);
+// 	const lowerPower = Math.pow(10, lower);
+// 	const upperPower = Math.pow(10, upper);
 
-	if (Math.abs(value - lowerPower) <= Math.abs(value - upperPower)) {
-		return lower;
-	} else {
-		return upper;
-	}
-}
+// 	if (Math.abs(value - lowerPower) <= Math.abs(value - upperPower)) {
+// 		return lower;
+// 	} else {
+// 		return upper;
+// 	}
+// }
 
 function formatUsd(value: number) {
 	if (isNaN(value)) return "N/A";
@@ -74,28 +74,58 @@ export const getNumberOfHolders = (
 	marketCap: number,
 	numOfHolders: string
 ): MsgType => {
-	const holders = parseInt(numOfHolders);
+	let fixValue = 0.3;
 
-	const DEFAULT_POW = 1.456;
+	if (marketCap >= 800000) {
+		fixValue = 0.2;
+	}
 
-	const exponent = getClosestExponentOfTen(marketCap);
+	const fixVal2 = (marketCap / 100) * fixValue;
 
-	const powValue = DEFAULT_POW * exponent;
+	const optimalHolders = (marketCap = fixVal2);
 
-	const mc = Math.pow(10, powValue);
+	const result = (parseInt(numOfHolders) / optimalHolders) * 100;
 
-	const optimalHolders = 0.0000526 * mc;
+	// console.log("mc: ", marketCap, "holders: ", numOfHolders);
 
-	if (holders > optimalHolders)
+	// const holders = parseInt(numOfHolders);
+
+	// const DEFAULT_POW = 1.456;
+
+	// const exponent = getClosestExponentOfTen(marketCap);
+
+	// console.log("exp: ", exponent);
+
+	// const powValue = DEFAULT_POW * exponent;
+
+	// console.log("pow-val: ", powValue);
+
+	// const mc = Math.pow(10, powValue);
+
+	// const optimalHolders = (0.0000526 * mc) / 100;
+
+	// console.log("optimal holders", optimalHolders);
+
+	// const oneProc = optimalHolders / 100;
+
+	// const result = holders / oneProc;
+
+	// console.log("res1", result);
+
+	// console.log("res2", (holders / optimalHolders) * 100);
+
+	// console.log("fix-value", fixValue);
+	// console.log("mk ", marketCap);
+	// console.log("holders: ", numOfHolders);
+	// console.log("optimal-holders: ", optimalHolders);
+	// console.log("res: ", result);
+
+	if (parseInt(numOfHolders) > optimalHolders || result <= 9)
 		return {
 			title: "Holders",
 			msg: `Holder count meets or exceeds the expected level, reducing price volatility`,
 			risk: "Very Low Risk.",
 		};
-
-	const oneProc = optimalHolders / 100;
-
-	const result = holders / oneProc;
 
 	if (result <= 10) {
 		return {
@@ -104,7 +134,7 @@ export const getNumberOfHolders = (
 			compaundMsg: {
 				first: "Holder count is slightly below the expected level ",
 				last: "but the market remains stable.",
-				value: `(~${result.toFixed(2)}%, ${holders}), `,
+				value: `(~${result.toFixed(2)}%, ${numOfHolders}), `,
 			},
 		};
 	}
@@ -112,30 +142,36 @@ export const getNumberOfHolders = (
 	if (result <= 20) {
 		return {
 			title: "Holders",
-			msg: `Decreased holder count (~${result.toFixed(
-				2
-			)}%, ${holders}) increases the chance of large holders influencing the price.`,
 			risk: "Medium Risk",
+			compaundMsg: {
+				first: "Decreased holder count",
+				last: "increases the chance of large holders influencing the price.",
+				value: `(~${result.toFixed(2)}%, ${numOfHolders}), `,
+			},
 		};
 	}
 
 	if (result <= 30) {
 		return {
 			title: "Holders",
-			msg: `Low holder count (~${result.toFixed(
-				2
-			)}%, ${holders}) raises the risk of sharp price swings and manipulation."`,
 			risk: "High Risk!",
+			compaundMsg: {
+				first: "Low holder count",
+				last: "raises the risk of sharp price swings and manipulation.",
+				value: `(~${result.toFixed(2)}%, ${numOfHolders}), `,
+			},
 		};
 	}
 
-	if (result >= 40) {
+	if (result > 30) {
 		return {
 			title: "Holders",
-			msg: `Significantly low holder count (<${result.toFixed(
-				2
-			)}%, ${holders}) poses a high risk of manipulation and strong volatility.`,
 			risk: "Very High Risk!",
+			compaundMsg: {
+				first: "Significantly low holder count",
+				last: "poses a high risk of manipulation and strong volatility.",
+				value: `(~${result.toFixed(2)}%, ${numOfHolders}), `,
+			},
 		};
 	}
 
